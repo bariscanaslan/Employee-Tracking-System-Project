@@ -64,4 +64,59 @@ To run the project on your local machine, follow these steps:
 
 ## Screenshots
 
+<div align="center">
+
+### Login Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/1.png" alt="Login Page"/>
+
+### Manager Home Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/2.png" alt="Manager Home Page"/>
+
+### Task Assignment Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/3.png" alt="Task Assignment Page"/>
+
+### Task Tracking Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/4.png" alt="Task Tracking Page"/>
+
+### Manage Leave Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/5.png" alt="Manage Leave Page"/>
+
+### Mail Inbox Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/6.png" alt="Mail Inbox Page"/>
+
+### Send Mail Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/7.png" alt="Send Mail Page"/>
+
+### Announcement Reading Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/8.png" alt="Announcement Reading Page"/>
+
+### Meal Menu Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/9.png" alt="Meal Menu Page"/>
+
+### Log Table Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/10.png" alt="Log Table Page"/>
+
+### Unit Table Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/11.png" alt="Unit Table Page"/>
+
+### Personnel Table Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/12.png" alt="Personnel Table Page"/>
+
+### Employee Home Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/13.png" alt="Employee Home Page"/>
+
+### Task Completion Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/14.png" alt="Task Completion Page"/>
+
+### Task Tracking Page (Employee)
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/15.png" alt="Task Tracking Page (Employee)"/>
+
+### Leave Request Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/16.png" alt="Leave Request Page"/>
+
+### My Leave Page
+<img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/17.png" alt="My Leave Page"/>
+
+</div>
+
 

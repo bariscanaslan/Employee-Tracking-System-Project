@@ -69,4 +69,7 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
   - **Admin Paneli**: Sistem yönetimi işlemleri buradan gerçekleştirilir.
 
 ## Ekran Görüntüleri
+
+   [![Alt Text](https://bariscanaslan.com/assets/img/logo2.png)]
+
    

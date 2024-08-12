@@ -70,6 +70,11 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 
 ## Ekran Görüntüleri
 
-   ![Alt Text](https://bariscanaslan.com/assets/img/logo2.png)
+   <div align="center">
+
+### Manager Panel
+<img src="https://bariscanaslan.com/assets/img/logo2.png" alt="Manager Panel" width="600"/>
+
+</div>
 
    

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<IsTakipSistemiMVC.Models.MailDropdownModel>
+@{
+    Layout = ViewBag.layout;
+}
+
+@if (Model.FirstOrDefault() != null)
+{
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
+          rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet" />
+
+    <link href="~/Assets/css/Partials/notification.css" rel="stylesheet" />
+
+    var mail = Model.FirstOrDefault();
+
+    <div class="center">
+        <a href="@Url.Action("Oku", "Mail", new { id = @mail.MailID})">
+            <div class="notify">
+            </div>
+            <div class="notification">
+                <img src="@mail.PersonelFoto" alt="" />
+                <div class="details">
+                    <div class="name">@mail.PersonelAdSoyad</div>
+                    <div class="message">Bir okunmamış mailiniz var!</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        let notification = document.querySelector(".notification");
+
+        window.onload = function () {
+            getNotified();
+        };
+
+        function getNotified() {
+            if (notification.classList.contains("hidden")) {
+                notification.classList.toggle("hidden");
+            }
+            notification.classList.toggle("active");
+            const timeout = setTimeout(() => {
+                if (
+                    notification.classList.contains("active") &&
+                    !notification.classList.contains("hidden")
+                ) {
+                    notification.classList.toggle("active");
+                    notification.classList.toggle("hidden");
+                } else {
+                    window.clearTimeout(timeout);
+                }
+            }, 5000);
+        }
+
+        function closeNote() {
+            notification.classList.toggle("active");
+            notification.classList.toggle("hidden");
+        }
+    </script>
+}

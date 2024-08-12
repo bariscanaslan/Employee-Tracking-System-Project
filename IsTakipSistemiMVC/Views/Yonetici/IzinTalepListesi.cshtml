@@ -1,0 +1,102 @@
+﻿@model List<IsTakipSistemiMVC.Models.TBL_IZINLER>
+@{
+    ViewBag.Title = "İzin Talepleri";
+    Layout = "~/Views/Shared/_layoutYonetici.cshtml";
+    ViewBag.tabloTitle = "İzin Takip Sayfası";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="mt-5 ">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+@Html.Action("PartialTakvim", "Yonetici")
+
+<div class="container mt-5">
+    @{
+        var groupedIzinler = Model.GroupBy(i => i.TBL_PERSONELLER.personelID);
+        int columnCounter = 0;
+    }
+    @foreach (var group in groupedIzinler)
+    {
+        if (columnCounter % 2 == 0)
+        {
+            @:<div class="row mt-5 mb-5">
+            }
+
+            <div class="col-6">
+                <div id="carousel-@group.Key" class="carousel slide">
+                    <div class="carousel-inner">
+                        @{
+                            int itemCounter = 0;
+                        }
+                        @foreach (var izin in group)
+                        {
+                            <div class="carousel-item @(itemCounter == 0 ? "active" : "")">
+                                <div class="card">
+                                    <div class="card-header text-center card-header-yonetici-izinTalep">
+                                        <img src="@izin.TBL_PERSONELLER.personelFoto" width="50" height="50" class="rounded-circle" /> @izin.TBL_PERSONELLER.personelAdSoyad
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><b>İzin Başlangıç Tarihi: </b>@izin.izinBaslangicTarihi.Value.ToString("dd/MM/yyyy")</li>
+                                            <li class="list-group-item"><b>İzin Bitiş Tarihi: </b>@izin.izinBitisTarihi.Value.ToString("dd/MM/yyyy")</li>
+                                            <li class="list-group-item"><b>İzin Talep Tarihi: </b>@izin.izinTalepTarihi.Value.ToString("dd/MM/yyyy HH:mm")</li>
+                                            <li class="list-group-item"><b>Toplam İzin İstenilen Gün Sayısı: </b>@izin.izinGunuSayisi</li>
+                                            <li class="list-group-item"><b>Kalan İş Günü Sayısı: </b>@izin.TBL_PERSONELLER.personelIzinGun</li>
+                                        </ul>
+                                    </div>
+                                    <div class="button-custom-group text-center mb-3">
+                                        <a href="@Url.Action("IzniKabulEt","Yonetici", new {izinID = izin.izinID})" class="btn btn-success"><i class="fa fa-check" id="i-yonetici-izinTalep"></i></a>
+                                        <a href="@Url.Action("IzniReddet","Yonetici", new {izinID = izin.izinID})" class="btn btn-primary"><i class="fa fa-times" id="i-yonetici-izinTalep"></i></a>
+                                    </div>
+                                </div>
+                                <form>
+                                </form>
+                            </div>
+                            itemCounter++;
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@group.Key" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-@group.Key" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            if (columnCounter % 2 == 1)
+            {
+            @:</div>
+        }
+        columnCounter++;
+    }
+    @if (columnCounter % 2 != 0)
+    {
+    @:</div>
+}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var carousels = document.querySelectorAll('.carousel');
+            carousels.forEach(carousel => {
+                var items = carousel.querySelectorAll('.carousel-item');
+                if (items.length <= 1) {
+                    carousel.querySelector('.carousel-control-prev').style.display = 'none';
+                    carousel.querySelector('.carousel-control-next').style.display = 'none';
+                }
+                var carouselInstance = new bootstrap.Carousel(carousel, {
+                    interval: false
+                });
+            });
+        });
+    </script>

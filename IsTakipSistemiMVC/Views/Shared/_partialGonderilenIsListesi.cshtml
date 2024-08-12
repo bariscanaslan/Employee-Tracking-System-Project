@@ -1,0 +1,37 @@
+﻿<div class="row mt-2 mb-5 m-2" id="widgets-yonetici-index">
+    <div class="col-12">
+        <p class="h5 text-center pb-4">GÖNDERİLEN İŞ LİSTESİ</p>
+        <div class="rounded p-4" style="background-color: var(--primary);">
+            <div class="row">
+                @foreach (var i in ViewBag.isler)
+                {
+                    var maxLength = 100; // Maksimum karakter uzunluğu
+                    var shortDescription = i.isAciklama.Length > maxLength ? i.isAciklama.Substring(0, maxLength) + "..." : i.isAciklama;
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-4">
+                        <div class="col-12 col-md-12 mb-4">
+                            <div class="card" style="border: none; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <div class="card-header" style="background-color: #343a40; border-bottom: none; border-radius: 10px 10px 0 0;">YENİ İŞ!</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@i.isBaslik</h5>
+                                    <p class="card-text">
+                                        @shortDescription
+                                    </p>
+                                    <a href="@Url.Action("IsKabulEt", "Calisan", new { isID = i.isID })" class="btn btn-success">
+                                        İŞİ KABUL ET
+                                    </a>
+                                    <a href="@Url.Action("IsReddet", "Calisan", new { isID = i.isID })" class="btn btn-primary">
+                                        İŞİ REDDET
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="alert alert-success" name="alertMesaj" style="display: @ViewBag.displayStyle;">
+                @ViewBag.mesaj
+            </div>
+        </div>
+    </div>
+</div>

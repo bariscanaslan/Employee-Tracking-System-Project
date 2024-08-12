@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = ViewBag.layout;
+    ViewBag.Title = "Duyuru Ekle";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <h4 class="mt-5 mb-3 text-center">
+            DUYURU EKLE
+        </h4>
+        <div class="card-body">
+            @using (Html.BeginForm("DuyuruEkle", "Duyurular", FormMethod.Post))
+            {
+                <div class="mb-3">
+                    <label class="form-label" for="duyuruBaslik">Duyuru Başlığı:</label>
+                    <input type="text" class="form-control" id="duyuruBaslik" name="duyuruBaslik" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="duyuruIcerik">Duyuru İçeriği:</label>
+                    <input type="text" class="form-control" id="duyuruIcerik" name="duyuruIcerik" />
+                </div>
+
+                <div class="col-12 pt-3">
+                    <button type="submit" class="btn btn-danger">Duyuru Yayınla</button>
+                </div>
+
+                if (ViewBag.mesaj != null)
+                {
+                    <div class="alert alert-danger mt-3" role="alert">
+                        @ViewBag.mesaj
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

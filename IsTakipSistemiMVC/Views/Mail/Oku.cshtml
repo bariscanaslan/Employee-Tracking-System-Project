@@ -1,0 +1,64 @@
+﻿@model IsTakipSistemiMVC.Models.MailViewModel
+@using System.Globalization;
+@{
+    Layout = ViewBag.layout;
+    ViewBag.Title = "Alınan Mail";
+    var turkishCulture = new CultureInfo("tr-TR");
+}
+
+<div class="container mt-5">
+    @if (Model.Mailler.Any())
+    {
+        var mail = Model.Mailler.FirstOrDefault();
+        var personel = Model.Personeller.FirstOrDefault(p => p.personelID == mail.mailGonderen);
+        var birim = Model.Birimler.FirstOrDefault(b => b.birimID == personel.personelBirimID);
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center p-4">
+                        <img src="@personel.personelFoto" height="60" width="60" class="rounded-circle me-3" />
+                        <div>
+                            <h5 class="mb-0">@personel.personelAdSoyad</h5>
+                            @if (birim != null)
+                            {
+                                <small class="">@birim.birimAd</small>
+                            }
+                        </div>
+                    </div>
+                    <div style="margin-right: 20px;">
+                        <small class="d-block">
+                            @mail.mailGonderimTarihi.Value.ToString("HH:mm ddd", turkishCulture)
+                        </small>
+                        <small class="d-block">
+                            @mail.mailGonderimTarihi.Value.ToString("dd/MM/yyyy", turkishCulture)
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title p-2"><b>@mail.mailKonu</b></h5>
+                <hr />
+                <div class="card-text p-2">
+                    @Html.Raw(mail.mailIcerik)
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 d-flex justify-content-center">
+            @if (mail.mailGonderen != Convert.ToInt32(Session["personelID"]))
+            {
+                <a href="@Url.Action("Yanitla", new { id = mail.mailID})" class="btn btn-info col-2 mx-2 text-white">
+                    Yanıtla
+                </a>
+            }
+            <a href="@Url.Action("Index","Mail")" class="btn btn-primary col-2 mx-2">
+                Gelen Kutusuna Dön
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info mt-5" role="alert">
+            Henüz bir mail bulunmamaktadır.
+        </div>
+    }
+</div>

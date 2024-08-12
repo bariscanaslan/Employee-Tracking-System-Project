@@ -1,0 +1,198 @@
+﻿@model IsTakipSistemiMVC.Models.PersonelViewModel
+
+@{
+    Layout = ViewBag.layout;
+    ViewBag.Title = "Mail Gönderme Sayfası";
+    ViewBag.tabloTitle = "Mail Gönder";
+}
+
+<script src="~/Assets/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#textarea',
+        license_key: 'gpl'
+    });
+</script>
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="mt-5">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container">
+    <div class="mt-5" id="icerik-mail-gonder">
+        <form method="post" action="@Url.Action("Gonder", "Mail")">
+            <div class="dropdown-mail-gonder">
+                <div id="customDropdownSelect" class="select-dropdown-mail-gonder mb-3">
+                    <img id="selectedPersonelFoto" src="" alt="" />
+                    <span id="selectedPersonelName" class="select-text">Kime Göndereceğinizi Seçiniz</span>
+                    <i class="dropdown-icon-mail-gonder fa fa-chevron-down"></i>
+                </div>
+                <div id="customDropdownMenu" class="dropdown-menu-mail-gonder">
+                    @foreach (var personel in Model.Personeller)
+                    {
+                        <div data-id="@personel.personelID" data-foto="@personel.personelFoto">
+                            <img class="text-center" src="@personel.personelFoto" alt="" />
+                            @personel.personelAdSoyad
+                        </div>
+                    }
+                </div>
+                <input type="hidden" id="aliciID" name="aliciID" />
+                <input type="hidden" id="personelIDs" name="personelIDs" />
+                <div class="form-group mb-1" id="form-groups-mail-gonder">
+                    <label for="readonlyTextbox" id="labels-mail-gonder"><b>Gönderilecekler:</b></label>
+                    <input class="form-control forms-mail-gonder" type="text" id="readonlyTextbox" readonly />
+                </div>
+                <div class="d-flex justify-content-center row mt-3">
+                    <button class="col-1 btn btn-primary mb-3 mx-4 buttons-mail-gonder" type="button" id="ekleBtn">Ekle</button>
+                    <button class="col-1 btn btn-primary mb-3 mx-4 buttons-mail-gonder" type="button" id="sifirlaBtn">Sıfırla</button>
+                    <button class="col-1 btn btn-primary mb-3 mx-4 buttons-mail-gonder" type="button" id="herkesiEkleBtn">Herkesi Ekle</button>
+                </div>
+                <div class="form-group mb-3" id="form-groups-mail-gonder">
+                    <label for="readonlyTextbox" id="labels-mail-gonder"><b>Konu:</b></label>
+                    <input class="form-control forms-mail-gonder" type="text" id="konu" name="konu" />
+                </div>
+
+            </div>
+            <textarea id="textarea" name="icerik"></textarea>
+            <button class="btn btn-primary text-center mt-3" type="submit">Gönder</button>
+        </form>
+    </div>
+    <div id="errorMessages" class="alert alert-danger d-none mt-3"></div>
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var customDropdownSelect = document.getElementById('customDropdownSelect');
+        var customDropdownMenu = document.getElementById('customDropdownMenu');
+        var icon = customDropdownSelect.querySelector('.dropdown-icon-mail-gonder');
+        var ekleBtn = document.getElementById('ekleBtn');
+        var sifirlaBtn = document.getElementById('sifirlaBtn');
+        var herkesiEkleBtn = document.getElementById('herkesiEkleBtn');
+        var personelIDs = document.getElementById('personelIDs');
+        var aliciID = document.getElementById('aliciID');
+        var readonlyTextbox = document.getElementById('readonlyTextbox');
+        var konuInput = document.getElementById('konu');
+        var icerikTextarea = document.getElementById('textarea');
+        var selectedName = "";
+
+        // Initialize TinyMCE
+        tinymce.init({
+            selector: '#textarea',
+            license_key: 'gpl'
+        });
+
+        customDropdownSelect.addEventListener('click', function () {
+            var editorContainer = document.querySelector('.mce-container');
+            if (editorContainer) {
+                var editorZIndex = window.getComputedStyle(editorContainer).zIndex;
+                customDropdownMenu.style.zIndex = parseInt(editorZIndex, 10) + 1;
+            }
+            customDropdownMenu.style.display = customDropdownMenu.style.display === 'block' ? 'none' : 'block';
+            icon.classList.toggle('open');
+        });
+
+        customDropdownMenu.querySelectorAll('div').forEach(function (item) {
+            item.addEventListener('click', function () {
+                selectedName = item.textContent.trim();
+                aliciID.value = item.getAttribute('data-id');
+                document.getElementById('selectedPersonelFoto').src = item.getAttribute('data-foto');
+                document.getElementById('selectedPersonelName').textContent = selectedName;
+                document.getElementById('selectedPersonelFoto').style.display = item.getAttribute('data-foto') ? 'block' : 'none';
+                customDropdownMenu.style.display = 'none';
+            });
+        });
+
+        ekleBtn.addEventListener('click', function () {
+            var currentID = aliciID.value;
+            var ids = personelIDs.value ? personelIDs.value.split(',') : [];
+            var names = readonlyTextbox.value ? readonlyTextbox.value.split(', ') : [];
+
+            if (currentID && !ids.includes(currentID)) {
+                ids.push(currentID);
+                names.push(selectedName);
+                personelIDs.value = ids.join(',');
+                readonlyTextbox.value = names.join(', ');
+
+                // Reset after adding
+                aliciID.value = '';
+                selectedName = '';
+                document.getElementById('selectedPersonelFoto').src = '';
+                document.getElementById('selectedPersonelName').textContent = 'Personel Seçiniz';
+                document.getElementById('selectedPersonelFoto').style.display = 'none';
+            }
+        });
+
+        sifirlaBtn.addEventListener('click', function () {
+            personelIDs.value = '';
+            readonlyTextbox.value = '';
+
+            aliciID.value = '';
+            selectedName = '';
+            document.getElementById('selectedPersonelFoto').src = '';
+            document.getElementById('selectedPersonelName').textContent = 'Personel Seçiniz';
+            document.getElementById('selectedPersonelFoto').style.display = 'none';
+        });
+
+        herkesiEkleBtn.addEventListener('click', function () {
+            var allIds = [];
+            var allNames = [];
+            customDropdownMenu.querySelectorAll('div').forEach(function (item) {
+                var id = item.getAttribute('data-id');
+                var name = item.textContent.trim();
+                allIds.push(id);
+                allNames.push(name);
+            });
+            personelIDs.value = allIds.join(',');
+            readonlyTextbox.value = allNames.join(', ');
+        });
+
+        document.addEventListener('click', function (event) {
+            var isClickInside = document.querySelector('.dropdown-mail-gonder').contains(event.target);
+            if (!isClickInside) {
+                customDropdownMenu.style.display = 'none';
+                icon.classList.remove('open');
+            }
+        });
+
+        // Form submission validation
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var isValid = true;
+            var errorMessages = '';
+
+            if (readonlyTextbox.value.trim() === '') {
+                errorMessages += 'Gönderilecekler alanı boş olamaz.<br>';
+                isValid = false;
+            }
+
+            if (konuInput.value.trim() === '') {
+                errorMessages += 'Konu alanı boş olamaz.<br>';
+                isValid = false;
+            }
+
+            // TinyMCE content validation
+            if (tinymce.get('textarea').getContent().trim() === '') {
+                errorMessages += 'İçerik alanı boş olamaz.<br>';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                var errorMessagesDiv = document.getElementById('errorMessages');
+                if (!errorMessagesDiv) {
+                    errorMessagesDiv = document.createElement('div');
+                    errorMessagesDiv.id = 'errorMessages';
+                    document.querySelector('form').prepend(errorMessagesDiv);
+                }
+                errorMessagesDiv.innerHTML = errorMessages;
+                errorMessagesDiv.classList.remove('d-none');
+                event.preventDefault();
+            } else {
+                var errorMessagesDiv = document.getElementById('errorMessages');
+                if (errorMessagesDiv) {
+                    errorMessagesDiv.classList.add('d-none');
+                }
+            }
+        });
+    });
+</script>

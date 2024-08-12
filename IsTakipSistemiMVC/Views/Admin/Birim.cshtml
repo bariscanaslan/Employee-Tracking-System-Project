@@ -1,0 +1,108 @@
+﻿@model IEnumerable<IsTakipSistemiMVC.Models.TBL_BIRIMLER>
+
+@{
+    ViewBag.Title = "Birim Tablosu";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+    ViewBag.tabloTitle = "Birim Tablosu";
+}
+
+<div class="mt-5">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container-fluid">
+    <div class="pt-4 text-center">
+        <i class="fa fa-plus-square"></i> @Html.ActionLink("Yeni Birim Ekle", "Olustur", new { }, new { @style = "color: var(--dark)" })
+    </div>
+    <div class="table-birim table-wrapper p-4">
+        <input type="text" id="tableSearch" placeholder="Ara">
+        <table class="table table-hover table-responsive" id="birimTable">
+            <thead>
+                <tr class="text-center">
+                    <th onclick="sortTable(0)">Birim Adı <span class="sortable-icon">▼</span></th>
+                    <th colspan="2">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>@Html.DisplayFor(modelItem => item.birimAd)</td>
+                        <td>
+                            <a href="@Url.Action("Guncelle", new { id = item.birimID })" class="btn btn-success">
+                                <i class="fa fa-edit icon-update"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Sil", new { id = item.birimID })" class="btn btn-danger">
+                                <i class="fa fa-trash icon-update"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Search Function
+    document.getElementById('tableSearch').addEventListener('keyup', function () {
+        var searchTerm = this.value.toLowerCase();
+        var rows = document.querySelectorAll('#birimTable tbody tr');
+        rows.forEach(function (row) {
+            var text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+    });
+
+    // Sort Function
+    function sortTable(n) {
+        var table = document.getElementById("birimTable");
+        var rows = table.rows;
+        var switching = true;
+        var shouldSwitch;
+        var dir = "asc";
+        var switchcount = 0;
+        var icons = document.getElementsByClassName("sortable-icon");
+
+        while (switching) {
+            switching = false;
+            var rowsArray = Array.prototype.slice.call(rows, 1);
+
+            for (var i = 0; i < rowsArray.length - 1; i++) {
+                shouldSwitch = false;
+                var x = rowsArray[i].getElementsByTagName("TD")[n];
+                var y = rowsArray[i + 1].getElementsByTagName("TD")[n];
+
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+
+            if (shouldSwitch) {
+                rowsArray[i].parentNode.insertBefore(rowsArray[i + 1], rowsArray[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+
+        for (var i = 0; i < icons.length; i++) {
+            icons[i].innerHTML = "▼";
+        }
+        icons[n].innerHTML = dir === "asc" ? "▲" : "▼";
+    }
+</script>

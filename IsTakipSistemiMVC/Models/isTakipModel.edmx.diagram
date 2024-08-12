@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="15248696ec43422fbd78abb32e1305cf" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="isTakipDBModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="isTakipDBModel.TBL_BIRIMLER" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="isTakipDBModel.TBL_DURUMLAR" Width="1.5" PointX="4.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="isTakipDBModel.TBL_ISLER" Width="1.5" PointX="5.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="isTakipDBModel.TBL_PERSONELLER" Width="1.5" PointX="3.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="isTakipDBModel.TBL_YETKITURLER" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="isTakipDBModel.FK_TBL_PERSONELLER_TBL_BIRIMLER" ManuallyRouted="false" />
+        <AssociationConnector Association="isTakipDBModel.FK_TBL_ISLER_TBL_DURUMLAR" ManuallyRouted="false" />
+        <AssociationConnector Association="isTakipDBModel.FK_TBL_ISLER_TBL_PERSONELLER" ManuallyRouted="false" />
+        <AssociationConnector Association="isTakipDBModel.FK_TBL_PERSONELLER_TBL_YETKITURLER" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="isTakipDBModel.TBL_LOGLAR" Width="1.5" PointX="7.375" PointY="0.75" />
+        <AssociationConnector Association="isTakipDBModel.FK_TBL_LOGLAR_TBL_PERSONELLER" />
+        <EntityTypeShape EntityType="isTakipDBModel.YemekTablo" Width="1.5" PointX="9.375" PointY="1.25" />
+        <EntityTypeShape EntityType="isTakipDBModel.TBL_DUYURULAR" Width="1.5" PointX="6.75" PointY="6" />
+        <AssociationConnector Association="isTakipDBModel.FK_TBL_DUYURULAR_TBL_PERSONELLER" />
+        <EntityTypeShape EntityType="isTakipDBModel.TBL_MAILLER" Width="1.5" PointX="1.125" PointY="6.75" />
+        <AssociationConnector Association="isTakipDBModel.FK_TBL_MAILLER_TBL_PERSONELLER" />
+        <AssociationConnector Association="isTakipDBModel.FK_TBL_MAILLER_TBL_PERSONELLER1" />
+        <EntityTypeShape EntityType="isTakipDBModel.TBL_IZINLER" Width="1.5" PointX="8.625" PointY="6.375" />
+        <AssociationConnector Association="isTakipDBModel.FK_TBL_IZINLER_TBL_PERSONELLER" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

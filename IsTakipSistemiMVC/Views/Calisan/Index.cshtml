@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Ana Sayfa";
+    Layout = "~/Views/Shared/_layoutCalisan.cshtml";
+}
+
+@Html.Action("PartialNotification", "Notification")
+
+@*<script src="~/Scripts/chart.min.js"></script>*@
+<script src="~/Assets/js/chart.min.js"></script>
+@*<script src="~/Theme/darkpan-1.0.0/js/main.js"></script>*@
+<script src="~/Assets/Theme/darkpan-1.0.0/js/main.js"></script>
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div>
+    @Html.Partial("_partialHosgeldiniz", new { ViewBag.personelYetkiTurAd, ViewBag.personelAd })
+</div>
+
+<div class="container" id="container-calisan-index">
+    @Html.Partial("_partialGonderilenIsListesi")
+    <div class="mt-5" id="icerik-calisan-index">
+        <div class="row">
+            <div class="col-12">
+                <div class="rounded p-4">
+                    <h5 class="mb-4 text-center">HAFTALIK YAPILAN İŞ GRAFİĞİ</h5>
+                    <canvas id="line-chart" class="canvas-calisan-index"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_partialYemekTablosu")
+
+</div>
+
+<script>
+    // Single Line Chart
+    var ctx3 = document.getElementById('line-chart').getContext('2d');
+    var labels = @Html.Raw(ViewBag.gunListesi);
+    var data = @Html.Raw(ViewBag.isSayilari);
+
+    var myChart3 = new Chart(ctx3, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "@ViewBag.personelAd",
+                fill: false,
+                backgroundColor: "rgba(235, 22, 22, .7)",
+                borderColor: "rgba(0,0,0, .7)", // Çizgi rengi
+                borderWidth: 2, // Çizgi kalınlığı
+                data: data
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+</script>

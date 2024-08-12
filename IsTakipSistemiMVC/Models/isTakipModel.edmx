@@ -1,0 +1,852 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="isTakipDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TBL_BIRIMLER">
+          <Key>
+            <PropertyRef Name="birimID" />
+          </Key>
+          <Property Name="birimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="birimAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="aktiflik" Type="bit" />
+          <Property Name="birimCreationDate" Type="datetime" />
+          <Property Name="birimDeletionDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TBL_DURUMLAR">
+          <Key>
+            <PropertyRef Name="durumID" />
+          </Key>
+          <Property Name="durumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="durumAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="durumCreationDate" Type="datetime" />
+          <Property Name="durumAktiflik" Type="bit" />
+          <Property Name="durumDeletionDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TBL_DUYURULAR">
+          <Key>
+            <PropertyRef Name="duyuruID" />
+          </Key>
+          <Property Name="duyuruID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="duyuruBaslik" Type="varchar(max)" />
+          <Property Name="duyuruIcerik" Type="varchar(max)" />
+          <Property Name="duyuruTarih" Type="datetime" />
+          <Property Name="duyuruOlusturan" Type="int" />
+          <Property Name="duyuruAktiflik" Type="bit" />
+          <Property Name="duyuruCreationDate" Type="datetime" />
+          <Property Name="duyuruDeletionDate" Type="datetime" />
+          <Property Name="duyuruOlusturanBirim" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_ISLER">
+          <Key>
+            <PropertyRef Name="isID" />
+          </Key>
+          <Property Name="isID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isBaslik" Type="nvarchar(max)" />
+          <Property Name="isAciklama" Type="nvarchar(max)" />
+          <Property Name="isPersonelID" Type="int" />
+          <Property Name="iletilenTarih" Type="datetime" />
+          <Property Name="yapilanTarih" Type="datetime" />
+          <Property Name="isDurumID" Type="int" />
+          <Property Name="isYorum" Type="nvarchar(max)" />
+          <Property Name="isCreationDate" Type="datetime" />
+          <Property Name="isDeletionDate" Type="datetime" />
+          <Property Name="isAktiflik" Type="bit" />
+          <Property Name="isKabulEdilenTarih" Type="datetime" />
+          <Property Name="isReddedilenTarih" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TBL_IZINLER">
+          <Key>
+            <PropertyRef Name="izinID" />
+          </Key>
+          <Property Name="izinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="izinPersonelID" Type="int" />
+          <Property Name="izinBaslangicTarihi" Type="datetime" />
+          <Property Name="izinBitisTarihi" Type="datetime" />
+          <Property Name="izinOnay" Type="bit" />
+          <Property Name="izinTalepTarihi" Type="datetime" />
+          <Property Name="izinRed" Type="bit" />
+          <Property Name="izinGunuSayisi" Type="int" />
+          <Property Name="izinDegerlendirmeTarihi" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TBL_LOGLAR">
+          <Key>
+            <PropertyRef Name="logID" />
+          </Key>
+          <Property Name="logID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="logAciklama" Type="nvarchar(max)" />
+          <Property Name="actionAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="controllerAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="tarih" Type="datetime" />
+          <Property Name="personelID" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_MAILLER">
+          <Key>
+            <PropertyRef Name="mailID" />
+          </Key>
+          <Property Name="mailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mailGonderen" Type="int" />
+          <Property Name="mailAlici" Type="int" />
+          <Property Name="mailKonu" Type="nvarchar(max)" />
+          <Property Name="mailIcerik" Type="nvarchar(max)" />
+          <Property Name="mailOkunma" Type="bit" />
+          <Property Name="mailGonderimTarihi" Type="datetime" />
+          <Property Name="mailArsiv" Type="bit" />
+          <Property Name="mailDeletionDate" Type="datetime" />
+          <Property Name="mailAktiflik" Type="bit" />
+          <Property Name="mailCopKutusu" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBL_PERSONELLER">
+          <Key>
+            <PropertyRef Name="personelID" />
+          </Key>
+          <Property Name="personelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="personelAdSoyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="personelKullaniciAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="personelParola" Type="nvarchar" MaxLength="50" />
+          <Property Name="personelFoto" Type="nvarchar(max)" />
+          <Property Name="personelBirimID" Type="int" />
+          <Property Name="personelYetkiTurID" Type="int" />
+          <Property Name="yeniPersonel" Type="bit" />
+          <Property Name="aktiflik" Type="bit" />
+          <Property Name="personelCreationDate" Type="datetime" />
+          <Property Name="personelDeletionDate" Type="datetime" />
+          <Property Name="personelDogumTarihi" Type="date" />
+          <Property Name="mailAdresi" Type="nvarchar" MaxLength="200" />
+          <Property Name="telefonNumarasi" Type="nvarchar" MaxLength="50" />
+          <Property Name="personelIzinGun" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_YETKITURLER">
+          <Key>
+            <PropertyRef Name="yetkiTurID" />
+          </Key>
+          <Property Name="yetkiTurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="yetkiTurAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="yetkiTurCreationDate" Type="datetime" />
+          <Property Name="yetkiTurDeletionDate" Type="datetime" />
+          <Property Name="yetkiTurAktiflik" Type="bit" />
+        </EntityType>
+        <EntityType Name="YemekTablo">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YemekAdi1" Type="nvarchar" MaxLength="100" />
+          <Property Name="YemekAdi2" Type="nvarchar" MaxLength="100" />
+          <Property Name="YemekAdi3" Type="nvarchar" MaxLength="100" />
+          <Property Name="YemekAdi4" Type="nvarchar" MaxLength="100" />
+          <Property Name="YemekAdi5" Type="nvarchar" MaxLength="100" />
+          <Property Name="YemekAdi6" Type="nvarchar" MaxLength="100" />
+          <Property Name="YemekAdi7" Type="nvarchar" MaxLength="100" />
+          <Property Name="YemekAdi8" Type="nvarchar" MaxLength="100" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="Kalori1" Type="int" />
+          <Property Name="Kalori2" Type="int" />
+          <Property Name="Kalori3" Type="int" />
+          <Property Name="Kalori4" Type="int" />
+          <Property Name="Kalori5" Type="int" />
+          <Property Name="Kalori6" Type="int" />
+          <Property Name="Kalori7" Type="int" />
+          <Property Name="Kalori8" Type="int" />
+        </EntityType>
+        <Association Name="FK_TBL_DUYURULAR_TBL_PERSONELLER">
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Role="TBL_DUYURULAR" Type="Self.TBL_DUYURULAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_DUYURULAR">
+              <PropertyRef Name="duyuruOlusturan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ISLER_TBL_DURUMLAR">
+          <End Role="TBL_DURUMLAR" Type="Self.TBL_DURUMLAR" Multiplicity="0..1" />
+          <End Role="TBL_ISLER" Type="Self.TBL_ISLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DURUMLAR">
+              <PropertyRef Name="durumID" />
+            </Principal>
+            <Dependent Role="TBL_ISLER">
+              <PropertyRef Name="isDurumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ISLER_TBL_PERSONELLER">
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Role="TBL_ISLER" Type="Self.TBL_ISLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_ISLER">
+              <PropertyRef Name="isPersonelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_IZINLER_TBL_PERSONELLER">
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Role="TBL_IZINLER" Type="Self.TBL_IZINLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_IZINLER">
+              <PropertyRef Name="izinPersonelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_LOGLAR_TBL_PERSONELLER">
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Role="TBL_LOGLAR" Type="Self.TBL_LOGLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_LOGLAR">
+              <PropertyRef Name="personelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_MAILLER_TBL_PERSONELLER">
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Role="TBL_MAILLER" Type="Self.TBL_MAILLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_MAILLER">
+              <PropertyRef Name="mailGonderen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_MAILLER_TBL_PERSONELLER1">
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Role="TBL_MAILLER" Type="Self.TBL_MAILLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_MAILLER">
+              <PropertyRef Name="mailAlici" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_PERSONELLER_TBL_BIRIMLER">
+          <End Role="TBL_BIRIMLER" Type="Self.TBL_BIRIMLER" Multiplicity="0..1" />
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_BIRIMLER">
+              <PropertyRef Name="birimID" />
+            </Principal>
+            <Dependent Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelBirimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_PERSONELLER_TBL_YETKITURLER">
+          <End Role="TBL_YETKITURLER" Type="Self.TBL_YETKITURLER" Multiplicity="0..1" />
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_YETKITURLER">
+              <PropertyRef Name="yetkiTurID" />
+            </Principal>
+            <Dependent Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelYetkiTurID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="isTakipDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_BIRIMLER" EntityType="Self.TBL_BIRIMLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_DURUMLAR" EntityType="Self.TBL_DURUMLAR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_DUYURULAR" EntityType="Self.TBL_DUYURULAR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ISLER" EntityType="Self.TBL_ISLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_IZINLER" EntityType="Self.TBL_IZINLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_LOGLAR" EntityType="Self.TBL_LOGLAR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MAILLER" EntityType="Self.TBL_MAILLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_PERSONELLER" EntityType="Self.TBL_PERSONELLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_YETKITURLER" EntityType="Self.TBL_YETKITURLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="YemekTablo" EntityType="Self.YemekTablo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_DUYURULAR_TBL_PERSONELLER" Association="Self.FK_TBL_DUYURULAR_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_DUYURULAR" EntitySet="TBL_DUYURULAR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ISLER_TBL_DURUMLAR" Association="Self.FK_TBL_ISLER_TBL_DURUMLAR">
+            <End Role="TBL_DURUMLAR" EntitySet="TBL_DURUMLAR" />
+            <End Role="TBL_ISLER" EntitySet="TBL_ISLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ISLER_TBL_PERSONELLER" Association="Self.FK_TBL_ISLER_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_ISLER" EntitySet="TBL_ISLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_IZINLER_TBL_PERSONELLER" Association="Self.FK_TBL_IZINLER_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_IZINLER" EntitySet="TBL_IZINLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_LOGLAR_TBL_PERSONELLER" Association="Self.FK_TBL_LOGLAR_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_LOGLAR" EntitySet="TBL_LOGLAR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_MAILLER_TBL_PERSONELLER" Association="Self.FK_TBL_MAILLER_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_MAILLER" EntitySet="TBL_MAILLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_MAILLER_TBL_PERSONELLER1" Association="Self.FK_TBL_MAILLER_TBL_PERSONELLER1">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_MAILLER" EntitySet="TBL_MAILLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_PERSONELLER_TBL_BIRIMLER" Association="Self.FK_TBL_PERSONELLER_TBL_BIRIMLER">
+            <End Role="TBL_BIRIMLER" EntitySet="TBL_BIRIMLER" />
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_PERSONELLER_TBL_YETKITURLER" Association="Self.FK_TBL_PERSONELLER_TBL_YETKITURLER">
+            <End Role="TBL_YETKITURLER" EntitySet="TBL_YETKITURLER" />
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="isTakipDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBL_BIRIMLER">
+          <Key>
+            <PropertyRef Name="birimID" />
+          </Key>
+          <Property Name="birimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="birimAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_PERSONELLER" Relationship="Self.FK_TBL_PERSONELLER_TBL_BIRIMLER" FromRole="TBL_BIRIMLER" ToRole="TBL_PERSONELLER" />
+          <Property Name="aktiflik" Type="Boolean" />
+          <Property Name="birimCreationDate" Type="DateTime" Precision="3" />
+          <Property Name="birimDeletionDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TBL_DURUMLAR">
+          <Key>
+            <PropertyRef Name="durumID" />
+          </Key>
+          <Property Name="durumID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="durumAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_ISLER" Relationship="Self.FK_TBL_ISLER_TBL_DURUMLAR" FromRole="TBL_DURUMLAR" ToRole="TBL_ISLER" />
+          <Property Name="durumCreationDate" Type="DateTime" Precision="3" />
+          <Property Name="durumAktiflik" Type="Boolean" />
+          <Property Name="durumDeletionDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TBL_ISLER">
+          <Key>
+            <PropertyRef Name="isID" />
+          </Key>
+          <Property Name="isID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isBaslik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isPersonelID" Type="Int32" />
+          <Property Name="iletilenTarih" Type="DateTime" Precision="3" />
+          <Property Name="yapilanTarih" Type="DateTime" Precision="3" />
+          <Property Name="isDurumID" Type="Int32" />
+          <NavigationProperty Name="TBL_DURUMLAR" Relationship="Self.FK_TBL_ISLER_TBL_DURUMLAR" FromRole="TBL_ISLER" ToRole="TBL_DURUMLAR" />
+          <NavigationProperty Name="TBL_PERSONELLER" Relationship="Self.FK_TBL_ISLER_TBL_PERSONELLER" FromRole="TBL_ISLER" ToRole="TBL_PERSONELLER" />
+          <Property Name="isYorum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isCreationDate" Type="DateTime" Precision="3" />
+          <Property Name="isDeletionDate" Type="DateTime" Precision="3" />
+          <Property Name="isAktiflik" Type="Boolean" />
+          <Property Name="isKabulEdilenTarih" Type="DateTime" Precision="3" />
+          <Property Name="isReddedilenTarih" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TBL_PERSONELLER">
+          <Key>
+            <PropertyRef Name="personelID" />
+          </Key>
+          <Property Name="personelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="personelAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="personelKullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="personelParola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="personelFoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="personelBirimID" Type="Int32" />
+          <Property Name="personelYetkiTurID" Type="Int32" />
+          <NavigationProperty Name="TBL_BIRIMLER" Relationship="Self.FK_TBL_PERSONELLER_TBL_BIRIMLER" FromRole="TBL_PERSONELLER" ToRole="TBL_BIRIMLER" />
+          <NavigationProperty Name="TBL_ISLER" Relationship="Self.FK_TBL_ISLER_TBL_PERSONELLER" FromRole="TBL_PERSONELLER" ToRole="TBL_ISLER" />
+          <NavigationProperty Name="TBL_YETKITURLER" Relationship="Self.FK_TBL_PERSONELLER_TBL_YETKITURLER" FromRole="TBL_PERSONELLER" ToRole="TBL_YETKITURLER" />
+          <NavigationProperty Name="TBL_LOGLAR" Relationship="isTakipDBModel.FK_TBL_LOGLAR_TBL_PERSONELLER" FromRole="TBL_PERSONELLER" ToRole="TBL_LOGLAR" />
+          <Property Name="yeniPersonel" Type="Boolean" />
+          <Property Name="aktiflik" Type="Boolean" />
+          <Property Name="personelCreationDate" Type="DateTime" Precision="3" />
+          <Property Name="personelDeletionDate" Type="DateTime" Precision="3" />
+          <Property Name="personelDogumTarihi" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TBL_DUYURULAR" Relationship="isTakipDBModel.FK_TBL_DUYURULAR_TBL_PERSONELLER" FromRole="TBL_PERSONELLER" ToRole="TBL_DUYURULAR" />
+          <Property Name="mailAdresi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="telefonNumarasi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_MAILLER" Relationship="isTakipDBModel.FK_TBL_MAILLER_TBL_PERSONELLER" FromRole="TBL_PERSONELLER" ToRole="TBL_MAILLER" />
+          <NavigationProperty Name="TBL_MAILLER1" Relationship="isTakipDBModel.FK_TBL_MAILLER_TBL_PERSONELLER1" FromRole="TBL_PERSONELLER" ToRole="TBL_MAILLER" />
+          <Property Name="personelIzinGun" Type="Int32" />
+          <NavigationProperty Name="TBL_IZINLER" Relationship="isTakipDBModel.FK_TBL_IZINLER_TBL_PERSONELLER" FromRole="TBL_PERSONELLER" ToRole="TBL_IZINLER" />
+        </EntityType>
+        <EntityType Name="TBL_YETKITURLER">
+          <Key>
+            <PropertyRef Name="yetkiTurID" />
+          </Key>
+          <Property Name="yetkiTurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="yetkiTurAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_PERSONELLER" Relationship="Self.FK_TBL_PERSONELLER_TBL_YETKITURLER" FromRole="TBL_YETKITURLER" ToRole="TBL_PERSONELLER" />
+          <Property Name="yetkiTurCreationDate" Type="DateTime" Precision="3" />
+          <Property Name="yetkiTurDeletionDate" Type="DateTime" Precision="3" />
+          <Property Name="yetkiTurAktiflik" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_TBL_PERSONELLER_TBL_BIRIMLER">
+          <End Role="TBL_BIRIMLER" Type="Self.TBL_BIRIMLER" Multiplicity="0..1" />
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_BIRIMLER">
+              <PropertyRef Name="birimID" />
+            </Principal>
+            <Dependent Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelBirimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ISLER_TBL_DURUMLAR">
+          <End Role="TBL_DURUMLAR" Type="Self.TBL_DURUMLAR" Multiplicity="0..1" />
+          <End Role="TBL_ISLER" Type="Self.TBL_ISLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DURUMLAR">
+              <PropertyRef Name="durumID" />
+            </Principal>
+            <Dependent Role="TBL_ISLER">
+              <PropertyRef Name="isDurumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ISLER_TBL_PERSONELLER">
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Role="TBL_ISLER" Type="Self.TBL_ISLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_ISLER">
+              <PropertyRef Name="isPersonelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_PERSONELLER_TBL_YETKITURLER">
+          <End Role="TBL_YETKITURLER" Type="Self.TBL_YETKITURLER" Multiplicity="0..1" />
+          <End Role="TBL_PERSONELLER" Type="Self.TBL_PERSONELLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_YETKITURLER">
+              <PropertyRef Name="yetkiTurID" />
+            </Principal>
+            <Dependent Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelYetkiTurID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="isTakipDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TBL_BIRIMLER" EntityType="Self.TBL_BIRIMLER" />
+          <EntitySet Name="TBL_DURUMLAR" EntityType="Self.TBL_DURUMLAR" />
+          <EntitySet Name="TBL_ISLER" EntityType="Self.TBL_ISLER" />
+          <EntitySet Name="TBL_PERSONELLER" EntityType="Self.TBL_PERSONELLER" />
+          <EntitySet Name="TBL_YETKITURLER" EntityType="Self.TBL_YETKITURLER" />
+          <AssociationSet Name="FK_TBL_PERSONELLER_TBL_BIRIMLER" Association="Self.FK_TBL_PERSONELLER_TBL_BIRIMLER">
+            <End Role="TBL_BIRIMLER" EntitySet="TBL_BIRIMLER" />
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ISLER_TBL_DURUMLAR" Association="Self.FK_TBL_ISLER_TBL_DURUMLAR">
+            <End Role="TBL_DURUMLAR" EntitySet="TBL_DURUMLAR" />
+            <End Role="TBL_ISLER" EntitySet="TBL_ISLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ISLER_TBL_PERSONELLER" Association="Self.FK_TBL_ISLER_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_ISLER" EntitySet="TBL_ISLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_PERSONELLER_TBL_YETKITURLER" Association="Self.FK_TBL_PERSONELLER_TBL_YETKITURLER">
+            <End Role="TBL_YETKITURLER" EntitySet="TBL_YETKITURLER" />
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+          </AssociationSet>
+          <EntitySet Name="TBL_LOGLAR" EntityType="isTakipDBModel.TBL_LOGLAR" />
+          <AssociationSet Name="FK_TBL_LOGLAR_TBL_PERSONELLER" Association="isTakipDBModel.FK_TBL_LOGLAR_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_LOGLAR" EntitySet="TBL_LOGLAR" />
+          </AssociationSet>
+          <EntitySet Name="YemekTablo" EntityType="isTakipDBModel.YemekTablo" />
+          <EntitySet Name="TBL_DUYURULAR" EntityType="isTakipDBModel.TBL_DUYURULAR" />
+          <AssociationSet Name="FK_TBL_DUYURULAR_TBL_PERSONELLER" Association="isTakipDBModel.FK_TBL_DUYURULAR_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_DUYURULAR" EntitySet="TBL_DUYURULAR" />
+          </AssociationSet>
+          <EntitySet Name="TBL_MAILLER" EntityType="isTakipDBModel.TBL_MAILLER" />
+          <AssociationSet Name="FK_TBL_MAILLER_TBL_PERSONELLER" Association="isTakipDBModel.FK_TBL_MAILLER_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_MAILLER" EntitySet="TBL_MAILLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_MAILLER_TBL_PERSONELLER1" Association="isTakipDBModel.FK_TBL_MAILLER_TBL_PERSONELLER1">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_MAILLER" EntitySet="TBL_MAILLER" />
+          </AssociationSet>
+          <EntitySet Name="TBL_IZINLER" EntityType="isTakipDBModel.TBL_IZINLER" />
+          <AssociationSet Name="FK_TBL_IZINLER_TBL_PERSONELLER" Association="isTakipDBModel.FK_TBL_IZINLER_TBL_PERSONELLER">
+            <End Role="TBL_PERSONELLER" EntitySet="TBL_PERSONELLER" />
+            <End Role="TBL_IZINLER" EntitySet="TBL_IZINLER" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TBL_LOGLAR">
+          <Key>
+            <PropertyRef Name="logID" />
+          </Key>
+          <Property Name="logID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="logAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="actionAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="controllerAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tarih" Type="DateTime" Precision="3" />
+          <Property Name="personelID" Type="Int32" />
+          <NavigationProperty Name="TBL_PERSONELLER" Relationship="isTakipDBModel.FK_TBL_LOGLAR_TBL_PERSONELLER" FromRole="TBL_LOGLAR" ToRole="TBL_PERSONELLER" />
+        </EntityType>
+        <Association Name="FK_TBL_LOGLAR_TBL_PERSONELLER">
+          <End Type="isTakipDBModel.TBL_PERSONELLER" Role="TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Type="isTakipDBModel.TBL_LOGLAR" Role="TBL_LOGLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_LOGLAR">
+              <PropertyRef Name="personelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="YemekTablo">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YemekAdi1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YemekAdi2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YemekAdi3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YemekAdi4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YemekAdi5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YemekAdi6" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YemekAdi7" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YemekAdi8" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="Kalori1" Type="Int32" />
+          <Property Name="Kalori2" Type="Int32" />
+          <Property Name="Kalori3" Type="Int32" />
+          <Property Name="Kalori4" Type="Int32" />
+          <Property Name="Kalori5" Type="Int32" />
+          <Property Name="Kalori6" Type="Int32" />
+          <Property Name="Kalori7" Type="Int32" />
+          <Property Name="Kalori8" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TBL_DUYURULAR">
+          <Key>
+            <PropertyRef Name="duyuruID" />
+          </Key>
+          <Property Name="duyuruID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="duyuruBaslik" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="duyuruIcerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="duyuruTarih" Type="DateTime" Precision="3" />
+          <Property Name="duyuruOlusturan" Type="Int32" />
+          <Property Name="duyuruAktiflik" Type="Boolean" />
+          <Property Name="duyuruCreationDate" Type="DateTime" Precision="3" />
+          <Property Name="duyuruDeletionDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TBL_PERSONELLER" Relationship="isTakipDBModel.FK_TBL_DUYURULAR_TBL_PERSONELLER" FromRole="TBL_DUYURULAR" ToRole="TBL_PERSONELLER" />
+          <Property Name="duyuruOlusturanBirim" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_TBL_DUYURULAR_TBL_PERSONELLER">
+          <End Type="isTakipDBModel.TBL_PERSONELLER" Role="TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Type="isTakipDBModel.TBL_DUYURULAR" Role="TBL_DUYURULAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_DUYURULAR">
+              <PropertyRef Name="duyuruOlusturan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_MAILLER">
+          <Key>
+            <PropertyRef Name="mailID" />
+          </Key>
+          <Property Name="mailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mailGonderen" Type="Int32" />
+          <Property Name="mailAlici" Type="Int32" />
+          <Property Name="mailKonu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="mailIcerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="mailOkunma" Type="Boolean" />
+          <Property Name="mailGonderimTarihi" Type="DateTime" Precision="3" />
+          <Property Name="mailArsiv" Type="Boolean" />
+          <Property Name="mailDeletionDate" Type="DateTime" Precision="3" />
+          <Property Name="mailAktiflik" Type="Boolean" />
+          <NavigationProperty Name="TBL_PERSONELLER" Relationship="isTakipDBModel.FK_TBL_MAILLER_TBL_PERSONELLER" FromRole="TBL_MAILLER" ToRole="TBL_PERSONELLER" />
+          <NavigationProperty Name="TBL_PERSONELLER1" Relationship="isTakipDBModel.FK_TBL_MAILLER_TBL_PERSONELLER1" FromRole="TBL_MAILLER" ToRole="TBL_PERSONELLER" />
+          <Property Name="mailCopKutusu" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_TBL_MAILLER_TBL_PERSONELLER">
+          <End Type="isTakipDBModel.TBL_PERSONELLER" Role="TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Type="isTakipDBModel.TBL_MAILLER" Role="TBL_MAILLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_MAILLER">
+              <PropertyRef Name="mailGonderen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_MAILLER_TBL_PERSONELLER1">
+          <End Type="isTakipDBModel.TBL_PERSONELLER" Role="TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Type="isTakipDBModel.TBL_MAILLER" Role="TBL_MAILLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_MAILLER">
+              <PropertyRef Name="mailAlici" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBL_IZINLER">
+          <Key>
+            <PropertyRef Name="izinID" />
+          </Key>
+          <Property Name="izinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="izinPersonelID" Type="Int32" />
+          <Property Name="izinBaslangicTarihi" Type="DateTime" Precision="3" />
+          <Property Name="izinBitisTarihi" Type="DateTime" Precision="3" />
+          <Property Name="izinOnay" Type="Boolean" />
+          <Property Name="izinTalepTarihi" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TBL_PERSONELLER" Relationship="isTakipDBModel.FK_TBL_IZINLER_TBL_PERSONELLER" FromRole="TBL_IZINLER" ToRole="TBL_PERSONELLER" />
+          <Property Name="izinRed" Type="Boolean" />
+          <Property Name="izinGunuSayisi" Type="Int32" />
+          <Property Name="izinDegerlendirmeTarihi" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_TBL_IZINLER_TBL_PERSONELLER">
+          <End Type="isTakipDBModel.TBL_PERSONELLER" Role="TBL_PERSONELLER" Multiplicity="0..1" />
+          <End Type="isTakipDBModel.TBL_IZINLER" Role="TBL_IZINLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PERSONELLER">
+              <PropertyRef Name="personelID" />
+            </Principal>
+            <Dependent Role="TBL_IZINLER">
+              <PropertyRef Name="izinPersonelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="isTakipDBModelStoreContainer" CdmEntityContainer="isTakipDBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="isTakipDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_BIRIMLER">
+            <EntityTypeMapping TypeName="isTakipDBModel.TBL_BIRIMLER">
+              <MappingFragment StoreEntitySet="TBL_BIRIMLER">
+                <ScalarProperty Name="birimDeletionDate" ColumnName="birimDeletionDate" />
+                <ScalarProperty Name="birimCreationDate" ColumnName="birimCreationDate" />
+                <ScalarProperty Name="aktiflik" ColumnName="aktiflik" />
+                <ScalarProperty Name="birimID" ColumnName="birimID" />
+                <ScalarProperty Name="birimAd" ColumnName="birimAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DURUMLAR">
+            <EntityTypeMapping TypeName="isTakipDBModel.TBL_DURUMLAR">
+              <MappingFragment StoreEntitySet="TBL_DURUMLAR">
+                <ScalarProperty Name="durumDeletionDate" ColumnName="durumDeletionDate" />
+                <ScalarProperty Name="durumAktiflik" ColumnName="durumAktiflik" />
+                <ScalarProperty Name="durumCreationDate" ColumnName="durumCreationDate" />
+                <ScalarProperty Name="durumID" ColumnName="durumID" />
+                <ScalarProperty Name="durumAd" ColumnName="durumAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ISLER">
+            <EntityTypeMapping TypeName="isTakipDBModel.TBL_ISLER">
+              <MappingFragment StoreEntitySet="TBL_ISLER">
+                <ScalarProperty Name="isReddedilenTarih" ColumnName="isReddedilenTarih" />
+                <ScalarProperty Name="isKabulEdilenTarih" ColumnName="isKabulEdilenTarih" />
+                <ScalarProperty Name="isAktiflik" ColumnName="isAktiflik" />
+                <ScalarProperty Name="isDeletionDate" ColumnName="isDeletionDate" />
+                <ScalarProperty Name="isCreationDate" ColumnName="isCreationDate" />
+                <ScalarProperty Name="isYorum" ColumnName="isYorum" />
+                <ScalarProperty Name="isID" ColumnName="isID" />
+                <ScalarProperty Name="isBaslik" ColumnName="isBaslik" />
+                <ScalarProperty Name="isAciklama" ColumnName="isAciklama" />
+                <ScalarProperty Name="isPersonelID" ColumnName="isPersonelID" />
+                <ScalarProperty Name="iletilenTarih" ColumnName="iletilenTarih" />
+                <ScalarProperty Name="yapilanTarih" ColumnName="yapilanTarih" />
+                <ScalarProperty Name="isDurumID" ColumnName="isDurumID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PERSONELLER">
+            <EntityTypeMapping TypeName="isTakipDBModel.TBL_PERSONELLER">
+              <MappingFragment StoreEntitySet="TBL_PERSONELLER">
+                <ScalarProperty Name="personelIzinGun" ColumnName="personelIzinGun" />
+                <ScalarProperty Name="telefonNumarasi" ColumnName="telefonNumarasi" />
+                <ScalarProperty Name="mailAdresi" ColumnName="mailAdresi" />
+                <ScalarProperty Name="personelDogumTarihi" ColumnName="personelDogumTarihi" />
+                <ScalarProperty Name="personelDeletionDate" ColumnName="personelDeletionDate" />
+                <ScalarProperty Name="personelCreationDate" ColumnName="personelCreationDate" />
+                <ScalarProperty Name="aktiflik" ColumnName="aktiflik" />
+                <ScalarProperty Name="yeniPersonel" ColumnName="yeniPersonel" />
+                <ScalarProperty Name="personelID" ColumnName="personelID" />
+                <ScalarProperty Name="personelAdSoyad" ColumnName="personelAdSoyad" />
+                <ScalarProperty Name="personelKullaniciAdi" ColumnName="personelKullaniciAdi" />
+                <ScalarProperty Name="personelParola" ColumnName="personelParola" />
+                <ScalarProperty Name="personelFoto" ColumnName="personelFoto" />
+                <ScalarProperty Name="personelBirimID" ColumnName="personelBirimID" />
+                <ScalarProperty Name="personelYetkiTurID" ColumnName="personelYetkiTurID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_YETKITURLER">
+            <EntityTypeMapping TypeName="isTakipDBModel.TBL_YETKITURLER">
+              <MappingFragment StoreEntitySet="TBL_YETKITURLER">
+                <ScalarProperty Name="yetkiTurAktiflik" ColumnName="yetkiTurAktiflik" />
+                <ScalarProperty Name="yetkiTurDeletionDate" ColumnName="yetkiTurDeletionDate" />
+                <ScalarProperty Name="yetkiTurCreationDate" ColumnName="yetkiTurCreationDate" />
+                <ScalarProperty Name="yetkiTurID" ColumnName="yetkiTurID" />
+                <ScalarProperty Name="yetkiTurAd" ColumnName="yetkiTurAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_LOGLAR">
+            <EntityTypeMapping TypeName="isTakipDBModel.TBL_LOGLAR">
+              <MappingFragment StoreEntitySet="TBL_LOGLAR">
+                <ScalarProperty Name="personelID" ColumnName="personelID" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="controllerAd" ColumnName="controllerAd" />
+                <ScalarProperty Name="actionAd" ColumnName="actionAd" />
+                <ScalarProperty Name="logAciklama" ColumnName="logAciklama" />
+                <ScalarProperty Name="logID" ColumnName="logID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YemekTablo">
+            <EntityTypeMapping TypeName="isTakipDBModel.YemekTablo">
+              <MappingFragment StoreEntitySet="YemekTablo">
+                <ScalarProperty Name="Kalori8" ColumnName="Kalori8" />
+                <ScalarProperty Name="Kalori7" ColumnName="Kalori7" />
+                <ScalarProperty Name="Kalori6" ColumnName="Kalori6" />
+                <ScalarProperty Name="Kalori5" ColumnName="Kalori5" />
+                <ScalarProperty Name="Kalori4" ColumnName="Kalori4" />
+                <ScalarProperty Name="Kalori3" ColumnName="Kalori3" />
+                <ScalarProperty Name="Kalori2" ColumnName="Kalori2" />
+                <ScalarProperty Name="Kalori1" ColumnName="Kalori1" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="YemekAdi8" ColumnName="YemekAdi8" />
+                <ScalarProperty Name="YemekAdi7" ColumnName="YemekAdi7" />
+                <ScalarProperty Name="YemekAdi6" ColumnName="YemekAdi6" />
+                <ScalarProperty Name="YemekAdi5" ColumnName="YemekAdi5" />
+                <ScalarProperty Name="YemekAdi4" ColumnName="YemekAdi4" />
+                <ScalarProperty Name="YemekAdi3" ColumnName="YemekAdi3" />
+                <ScalarProperty Name="YemekAdi2" ColumnName="YemekAdi2" />
+                <ScalarProperty Name="YemekAdi1" ColumnName="YemekAdi1" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DUYURULAR">
+            <EntityTypeMapping TypeName="isTakipDBModel.TBL_DUYURULAR">
+              <MappingFragment StoreEntitySet="TBL_DUYURULAR">
+                <ScalarProperty Name="duyuruOlusturanBirim" ColumnName="duyuruOlusturanBirim" />
+                <ScalarProperty Name="duyuruDeletionDate" ColumnName="duyuruDeletionDate" />
+                <ScalarProperty Name="duyuruCreationDate" ColumnName="duyuruCreationDate" />
+                <ScalarProperty Name="duyuruAktiflik" ColumnName="duyuruAktiflik" />
+                <ScalarProperty Name="duyuruOlusturan" ColumnName="duyuruOlusturan" />
+                <ScalarProperty Name="duyuruTarih" ColumnName="duyuruTarih" />
+                <ScalarProperty Name="duyuruIcerik" ColumnName="duyuruIcerik" />
+                <ScalarProperty Name="duyuruBaslik" ColumnName="duyuruBaslik" />
+                <ScalarProperty Name="duyuruID" ColumnName="duyuruID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MAILLER">
+            <EntityTypeMapping TypeName="isTakipDBModel.TBL_MAILLER">
+              <MappingFragment StoreEntitySet="TBL_MAILLER">
+                <ScalarProperty Name="mailCopKutusu" ColumnName="mailCopKutusu" />
+                <ScalarProperty Name="mailAktiflik" ColumnName="mailAktiflik" />
+                <ScalarProperty Name="mailDeletionDate" ColumnName="mailDeletionDate" />
+                <ScalarProperty Name="mailArsiv" ColumnName="mailArsiv" />
+                <ScalarProperty Name="mailGonderimTarihi" ColumnName="mailGonderimTarihi" />
+                <ScalarProperty Name="mailOkunma" ColumnName="mailOkunma" />
+                <ScalarProperty Name="mailIcerik" ColumnName="mailIcerik" />
+                <ScalarProperty Name="mailKonu" ColumnName="mailKonu" />
+                <ScalarProperty Name="mailAlici" ColumnName="mailAlici" />
+                <ScalarProperty Name="mailGonderen" ColumnName="mailGonderen" />
+                <ScalarProperty Name="mailID" ColumnName="mailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_IZINLER">
+            <EntityTypeMapping TypeName="isTakipDBModel.TBL_IZINLER">
+              <MappingFragment StoreEntitySet="TBL_IZINLER">
+                <ScalarProperty Name="izinDegerlendirmeTarihi" ColumnName="izinDegerlendirmeTarihi" />
+                <ScalarProperty Name="izinGunuSayisi" ColumnName="izinGunuSayisi" />
+                <ScalarProperty Name="izinRed" ColumnName="izinRed" />
+                <ScalarProperty Name="izinTalepTarihi" ColumnName="izinTalepTarihi" />
+                <ScalarProperty Name="izinOnay" ColumnName="izinOnay" />
+                <ScalarProperty Name="izinBitisTarihi" ColumnName="izinBitisTarihi" />
+                <ScalarProperty Name="izinBaslangicTarihi" ColumnName="izinBaslangicTarihi" />
+                <ScalarProperty Name="izinPersonelID" ColumnName="izinPersonelID" />
+                <ScalarProperty Name="izinID" ColumnName="izinID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,17 @@
+﻿#a-confirm-yemek {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+
+input[type="date"] {
+    background-color: #FFFFFF;
+    color: black; /* Metin rengini de siyah yapalım ki beyaz arka planda okunaklı olsun */
+    border: 1px solid #ccc; /* İsteğe bağlı: sınır rengi */
+    padding: 8px; /* İsteğe bağlı: iç boşluk */
+    border-radius: 4px; /* İsteğe bağlı: köşeleri yuvarlat */
+}
+
+#input-groups-yemek {
+    background-color: var(--primary);
+}

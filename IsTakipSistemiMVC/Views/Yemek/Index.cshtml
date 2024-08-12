@@ -1,0 +1,129 @@
+﻿@model IsTakipSistemiMVC.Models.YemekTablo
+@{
+    Layout = ViewBag.layout;
+    ViewBag.Title = "Yemek Tablosu";
+    ViewBag.tabloTitle = "Yemek Tablosu";
+}
+@{
+    var tarihString = Model?.Tarih?.ToString("yyyy-MM-dd");
+}
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="mt-5">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container-fluid mt-5">
+    @if (Convert.ToInt32(Session["personelYetkiTurID"]) == 3)
+    {
+        <div class="button-group text-center pt-5">
+            <div class="text-center mx-3 d-inline-block">
+                <i class="fa fa-plus-square"></i> @Html.ActionLink("Menü Ekle", "YemekEkle", "Yemek", new { }, new { @style = "color: var(--dark)" })
+            </div>
+            <div class="text-center mx-3 d-inline-block">
+                <i class="fa fa-pen"></i> @Html.ActionLink("Menü Düzenle", "YemekDuzenle", "Yemek", new { tarih = tarihString }, new { @style = "color: var(--dark)" })
+            </div>
+            <div class="text-center mx-3 d-inline-block">
+                <i class="fa fa-trash"></i>
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" id="a-confirm-yemek">Menü Sil</a>
+            </div>
+        </div>
+        <!-- Confirmation Modal -->
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmModalLabel">Silme Onayı</h5>
+                    </div>
+                    <div class="modal-body">
+                        Bu menüyü silmek istediğinizden emin misiniz?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                        @using (Html.BeginForm("YemekSil", "Yemek", FormMethod.Post, new { @id = "deleteForm" }))
+                        {
+                            @Html.Hidden("tarih", tarihString)
+                            <button type="submit" class="btn btn-danger">Sil</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="table-custom p-4">
+        @if (Model == null)
+        {
+            using (Html.BeginForm("Index", "Yemek", FormMethod.Post))
+            {
+                <div class="input-group mb-4" id="input-groups-yemek">
+                    <input type="date" id="tarih" name="tarih" class="form-control form-control-yemek">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary mx-3">Tarih Getir</button>
+                    </div>
+                </div>
+            }
+            <div class="alert alert-danger">
+                Aradığınız tarih için yemek verisi bulunmamaktadır.
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm("Index", "Yemek", FormMethod.Post))
+            {
+                <div class="input-group mb-4" id="input-groups-yemek">
+                    <input type="date" id="tarih" name="tarih" class="form-control" value="@Model.Tarih.Value.ToString("yyyy-MM-dd")">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary mx-3">Tarih Getir</button>
+                    </div>
+                </div>
+            }
+            <table class="table table-hover table-responsive">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Yemek Adı</th>
+                        <th scope="col">Yemeğin Kalorisi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="tr-custom text-center">
+                        <td class="col-8">@Model.YemekAdi1</td>
+                        <td class="col-4">@Model.Kalori1 kcal</td>
+                    </tr>
+                    <tr class="tr-custom text-center">
+                        <td class="col-8">@Model.YemekAdi2</td>
+                        <td class="col-4">@Model.Kalori2 kcal</td>
+                    </tr>
+                    <tr class="tr-custom text-center">
+                        <td class="col-8">@Model.YemekAdi3</td>
+                        <td class="col-4">@Model.Kalori3 kcal</td>
+                    </tr>
+                    <tr class="tr-custom text-center">
+                        <td class="col-8">@Model.YemekAdi4</td>
+                        <td class="col-4">@Model.Kalori4 kcal</td>
+                    </tr>
+                    <tr class="tr-custom text-center">
+                        <td class="col-8">@Model.YemekAdi5</td>
+                        <td class="col-4">@Model.Kalori5 kcal</td>
+                    </tr>
+                    <tr class="tr-custom text-center">
+                        <td class="col-8">@Model.YemekAdi6</td>
+                        <td class="col-4">@Model.Kalori6 kcal</td>
+                    </tr>
+                    <tr class="tr-custom text-center">
+                        <td class="col-8">@Model.YemekAdi7</td>
+                        <td class="col-4">@Model.Kalori7 kcal</td>
+                    </tr>
+                    <tr class="tr-custom text-center">
+                        <td class="col-8">@Model.YemekAdi8</td>
+                        <td class="col-4">@Model.Kalori8 kcal</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS for modal functionality -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

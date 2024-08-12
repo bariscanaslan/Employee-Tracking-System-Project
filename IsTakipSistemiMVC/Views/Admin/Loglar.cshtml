@@ -1,0 +1,104 @@
+﻿@model IEnumerable<IsTakipSistemiMVC.Models.TBL_LOGLAR>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Loglar";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+    ViewBag.tabloTitle = "Log Tablosu";
+}
+
+
+<div class="mt-5">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container-fluid mt-5">
+    <div class="p-4 text-center">
+        <div class="d-inline-block mb-3">
+            @using (Html.BeginForm("Excel", "Admin", FormMethod.Post))
+            {
+                <i class="fa fa-file-excel"></i><button type="submit" style="color: var(--dark);" class="btn">Excel'e Aktar</button>
+            }
+        </div>
+        <div class="d-inline-block mb-3">
+            @using (Html.BeginForm("LogTemizle", "Admin", FormMethod.Post))
+            {
+                <i class="fa fa-trash-alt"></i><button id="clearLogsLink" type="submit" style="color: var(--dark);" class="btn">Log Temizle</button>
+            }
+        </div>
+        @if (!Model.Any())
+        {
+            <div class="alert alert-danger" role="alert">
+                Gösterilecek kayıt bulunamadı.
+            </div>
+        }
+        else
+        {
+            <div class="grid-custom table-wrapper">
+                @Html.Grid(Model).Columns(column =>
+                               {
+                                   column.Add(m => m.TBL_PERSONELLER.personelAdSoyad).Titled("Personel Ad Soyad").Filterable(true);
+                                   column.Add(m => m.logAciklama).Titled("Log Açıklama").Filterable(true);
+                                   column.Add(m => m.actionAd).Titled("Action Adı").Filterable(true);
+                                   column.Add(m => m.controllerAd).Titled("Controller Adı").Filterable(true);
+                                   column.Add(m => m.tarih).Titled("Tarih").Filterable(true).Sortable(true);
+                               }).WithPaging(40)
+            </div>
+        }
+
+    </div>
+</div>
+
+<!-- Modal Dialog HTML -->
+<div id="confirmationModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog justify-content-center align-items-center align-content-center" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Emin misiniz?</h5>
+            </div>
+            <div class="modal-body">
+                <p>İşlemi gerçekleştirmek için şifrenizi giriniz.</p>
+                <input type="password" id="confirmationPassword" class="form-control" placeholder="Şifrenizi girin">
+                <div id="errorMessage" class="text-danger mt-2" style="display: none;">Şifre yanlış, lütfen tekrar deneyin.</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmButton">Onayla</button>
+                <button type="button" class="btn btn-success" id="cancelButton">İptal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery ve Bootstrap Kütüphaneleri -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#clearLogsLink').on('click', function (e) {
+            e.preventDefault();
+            $('#confirmationModal').modal('show');
+        });
+
+        $('#confirmButton').on('click', function () {
+            var password = $('#confirmationPassword').val();
+            var correctPassword = '@ViewBag.sifre'; // Doğru şifreyi buraya yazın
+
+            if (password === correctPassword) {
+                $('#confirmationModal').modal('hide');
+                // Doğru şifre girildiyse formu submit et
+                $('#clearLogsLink').closest('form').submit();
+            } else {
+                $('#errorMessage').show();
+            }
+        });
+
+        $('#confirmationModal').on('hidden.bs.modal', function () {
+            $('#confirmationPassword').val('');
+            $('#errorMessage').hide();
+        });
+
+        $('#cancelButton').on('click', function () {
+            $('#confirmationModal').modal('hide');
+        });
+    });
+</script>

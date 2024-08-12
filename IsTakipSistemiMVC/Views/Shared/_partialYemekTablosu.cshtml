@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!-- Günün Yemeği Kartı -->
+<div class="card mt-4 mb-4">
+    <div class="card-body">
+        <h5 class="mb-4 text-center pt-4" style="background-color: var(--secondary); padding: 20px; box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px; ">Yemek Tablosu</h5>
+        
+        <div class="card-text">
+            @{
+                var bugunYemek = ViewBag.BugunYemek as IsTakipSistemiMVC.Models.YemekTablo;
+            }
+            @if (bugunYemek != null)
+            {
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">Yemek Adı</th>
+                            <th scope="col">Yemeğin Kalorisi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="tr-custom text-center">
+                            <td class="col-8">@bugunYemek.YemekAdi1</td>
+                            <td class="col-4">@bugunYemek.Kalori1 kcal</td>
+                        </tr>
+                        <tr class="tr-custom text-center">
+                            <td class="col-8">@bugunYemek.YemekAdi2</td>
+                            <td class="col-4">@bugunYemek.Kalori2 kcal</td>
+                        </tr>
+                        <tr class="tr-custom text-center">
+                            <td class="col-8">@bugunYemek.YemekAdi3</td>
+                            <td class="col-4">@bugunYemek.Kalori3 kcal</td>
+                        </tr>
+                        <tr class="tr-custom text-center">
+                            <td class="col-8">@bugunYemek.YemekAdi4</td>
+                            <td class="col-4">@bugunYemek.Kalori4 kcal</td>
+                        </tr>
+                        <tr class="tr-custom text-center">
+                            <td class="col-8">@bugunYemek.YemekAdi5</td>
+                            <td class="col-4">@bugunYemek.Kalori5 kcal</td>
+                        </tr>
+                        <tr class="tr-custom text-center">
+                            <td class="col-8">@bugunYemek.YemekAdi6</td>
+                            <td class="col-4">@bugunYemek.Kalori6 kcal</td>
+                        </tr>
+                        <tr class="tr-custom text-center">
+                            <td class="col-8">@bugunYemek.YemekAdi7</td>
+                            <td class="col-4">@bugunYemek.Kalori7 kcal</td>
+                        </tr>
+                        <tr class="tr-custom text-center">
+                            <td class="col-8">@bugunYemek.YemekAdi8</td>
+                            <td class="col-4">@bugunYemek.Kalori8 kcal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Bugün için yemek menüsü bulunmamaktadır.</p>
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,116 @@
+﻿@model IsTakipSistemiMVC.Models.DuyuruTableModel
+@{
+    Layout = ViewBag.layout;
+    ViewBag.Title = "Duyurular";
+    int birimIslem = 0;
+    int sessionYetkiTurID = Convert.ToInt32(Session["personelYetkiTurID"]);
+    int sessionBirimID = Convert.ToInt32(Session["personelBirimID"]);
+    if (sessionYetkiTurID != 3)
+    {
+        birimIslem = sessionBirimID;
+    }
+    ViewBag.tabloTitle = "Duyuru Tablosu";
+}
+
+<div class="mt-5 ">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container-fluid mt-5">
+    @if (sessionYetkiTurID != 2)
+    {
+        <div class="text-center pt-4">
+            <i class="fa fa-paper-plane"></i> @Html.ActionLink("Duyuru Yayınla", "DuyuruEkle", "Duyurular", new { }, new { @style = "color: var(--dark)" })
+        </div>
+    }
+    <div class="table-duyuru table-wrapper p-4">
+        <table class="table table-responsive">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">Duyuru ID</th>
+                    <th scope="col">Duyuru Başlık</th>
+                    <th scope="col">Duyuru İçerik</th>
+                    <th scope="col">Yayınlayan Kişi</th>
+                    <th scope="col">Yayınlayan Birim</th>
+                    <th scope="col">Yayınlanma Tarihi</th>
+                    <th scope="col">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var duyuru in Model.Duyurular)
+                {
+                    var personel = Model.Personeller.FirstOrDefault(p => p.personelID == duyuru.duyuruOlusturan);
+                    var birim = Model.Birimler.FirstOrDefault(b => b.birimID == duyuru.duyuruOlusturanBirim);
+
+                    <tr class="tr-custom text-center">
+                        <td>@duyuru.duyuruID</td>
+                        <td>@duyuru.duyuruBaslik</td>
+                        <td>@duyuru.duyuruIcerik</td>
+                        <td>@(personel != null ? personel.personelAdSoyad : "N/A")</td>
+                        <td>@(birim != null ? birim.birimAd : "-")</td>
+                        <td>@duyuru.duyuruTarih.Value.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                @if (birimIslem == duyuru.duyuruOlusturanBirim && sessionYetkiTurID == 1)
+                                {
+                                    <a href="@Url.Action("DuyuruGuncelle", new { id = duyuru.duyuruID })" class="btn btn-success me-1">
+                                        <i class="fa fa-edit icon-update"></i>
+                                    </a>
+                                    <a href="@Url.Action("DuyuruSil", new { id = duyuru.duyuruID })" class="btn btn-danger me-1">
+                                        <i class="fa fa-trash icon-update"></i>
+                                    </a>
+                                    <a href="@Url.Action("DuyuruInfo", new { id = duyuru.duyuruID })" class="btn btn-info">
+                                        <i class="fa fa-info-circle icon-update"></i>
+                                    </a>
+                                }
+                                else if (duyuru.duyuruOlusturanBirim == null && sessionYetkiTurID == 3)
+                                {
+                                    <a href="@Url.Action("DuyuruGuncelle", new { id = duyuru.duyuruID })" class="btn btn-success me-1">
+                                        <i class="fa fa-edit icon-update"></i>
+                                    </a>
+                                    <a href="@Url.Action("DuyuruSil", new { id = duyuru.duyuruID })" class="btn btn-danger me-1">
+                                        <i class="fa fa-trash icon-update"></i>
+                                    </a>
+                                    <a href="@Url.Action("DuyuruInfo", new { id = duyuru.duyuruID })" class="btn btn-info">
+                                        <i class="fa fa-info-circle icon-update"></i>
+                                    </a>
+                                }
+                                else if (duyuru.duyuruOlusturanBirim != null && sessionYetkiTurID == 3)
+                                {
+                                    <a href="@Url.Action("DuyuruSil", new { id = duyuru.duyuruID })" class="btn btn-danger me-1">
+                                        <i class="fa fa-trash icon-update"></i>
+                                    </a>
+                                    <a href="@Url.Action("DuyuruInfo", new { id = duyuru.duyuruID })" class="btn btn-info">
+                                        <i class="fa fa-info-circle icon-update"></i>
+                                    </a>
+                                }
+                                else if (duyuru.duyuruOlusturanBirim == null && sessionYetkiTurID == 1)
+                                {
+                                    <a href="@Url.Action("DuyuruInfo", new { id = duyuru.duyuruID })" class="btn btn-info">
+                                        <i class="fa fa-info-circle icon-update"></i>
+                                    </a>
+                                }
+                                else if (sessionYetkiTurID == 2)
+                                {
+                                    <a href="@Url.Action("DuyuruInfo", new { id = duyuru.duyuruID })" class="btn btn-info">
+                                        <i class="fa fa-info-circle icon-update"></i>
+                                    </a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.table-wrapper td').forEach(function (cell) {
+        // Buton içermeyen hücreler için üç nokta ekle
+        if (!cell.querySelector('a') && cell.textContent.length > 25) {
+            let text = cell.textContent;
+            cell.textContent = text.substring(0, 25) + '...';
+        }
+    });
+</script>

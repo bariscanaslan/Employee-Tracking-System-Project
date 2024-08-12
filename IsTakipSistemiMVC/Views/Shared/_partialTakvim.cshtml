@@ -1,0 +1,439 @@
+﻿
+@{
+    ViewBag.Title = "_partialTakvim";
+    Layout = null;
+}
+
+<link href="~/Assets/Calendar/css/daterangepicker.css" rel="stylesheet" />
+<link href="~/Assets/Calendar/css/dropzone.css" rel="stylesheet" />
+<link href="~/Assets/Calendar/css/fullcalendar.css" rel="stylesheet" />
+<link href="~/Assets/Calendar/css/jquery.steps.css" rel="stylesheet" />
+<link href="~/Assets/Calendar/css/jquery.timepicker.css" rel="stylesheet" />
+<link href="~/Assets/Calendar/css/quill.snow.css" rel="stylesheet" />
+<link href="~/Assets/Calendar/css/select2.css" rel="stylesheet" />
+<link href="~/Assets/Calendar/css/uppy.min.css" rel="stylesheet" />
+
+<style>
+
+    td.fc-day.fc-sun.fc-today.alert.alert-info{
+        background-color: var(--dark);
+        border:none;
+    }
+
+    .fc-day.fc-fri.fc-today.alert.alert-info {
+        background-color: var(--dark);
+    }
+
+    .fc-time {
+        display: none !important;
+    }
+
+    .fc-today-button {
+        color: #393E46 !important;
+    }
+
+        .fc-today-button:hover {
+            color: #F7F7F7 !important;
+            background-color: #393E46 !important;
+        }
+
+    .fc-prev-button {
+        color: #393E46 !important;
+    }
+
+        .fc-prev-button:hover {
+            color: #F7F7F7 !important;
+            background-color: #393E46 !important;
+        }
+
+    .fc-next-button {
+        color: #393E46 !important;
+    }
+
+        .fc-next-button:hover {
+            color: #F7F7F7 !important;
+            background-color: #393E46 !important;
+        }
+
+
+    .fc-dayGridMonth-button {
+        color: #393E46 !important;
+    }
+
+        .fc-dayGridMonth-button:hover {
+            color: #F7F7F7 !important;
+            background-color: #393E46 !important;
+        }
+
+    .fc-timeGridWeek-button {
+        color: #393E46 !important;
+    }
+
+        .fc-timeGridWeek-button:hover {
+            color: #F7F7F7 !important;
+            background-color: #393E46 !important;
+        }
+
+    .fc-timeGridDay-button {
+        color: #393E46 !important;
+    }
+
+        .fc-timeGridDay-button:hover {
+            color: #F7F7F7 !important;
+            background-color: #393E46 !important;
+        }
+
+    .fc-listMonth-button {
+        color: #393E46 !important;
+    }
+
+        .fc-listMonth-button:hover {
+            color: #F7F7F7 !important;
+            background-color: #393E46 !important;
+        }
+
+
+    /* Calendar */
+    .fc-bootstrap table,
+    .fc-bootstrap .fc-head-container {
+        border-width: 0 !important;
+        font-size: 0.875rem;
+    }
+
+    .fc-bootstrap th,
+    .fc-bootstrap td {
+        border-left-width: 0;
+        border-right-width: 0;
+        padding: .2rem 1rem;
+        border-bottom-width: 0 !important;
+    }
+
+    .fc-bootstrap .fc-toolbar .btn {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+    }
+
+    .fc-bootstrap .fc-toolbar .fc-next-button {
+        margin-left: -1px;
+    }
+
+    .fc-bootstrap hr.fc-divider {
+        padding: 0;
+        margin-top: -1px;
+        border-color: #e9ecef;
+    }
+
+    .fc-bootstrap .fc-popover {
+        position: absolute;
+    }
+
+    .fc-content {
+        padding: 6px;
+        border-radius: 20px;
+        font-size: 14px;
+    }
+
+    .fc-header-toolbar {
+        overflow-x: auto; /* Yatay kaydırma çubuğu ekler */
+        width: 100%; /* Konteyner genişliğini %100 yapar */
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center" style="background-color: var(--primary);">
+        <div class="col-12">
+            <div class="row align-items-center my-3">
+                <div class="col-auto">
+                    <button type="button" class="btn" data-toggle="modal" data-target=".modal-calendar"><span class="fe fe-filter fe-16 text-muted"></span></button>
+                </div>
+            </div>
+            <div id='calendar'></div>
+        </div> <!-- .col-12 -->
+    </div> <!-- .row -->
+</div> <!-- .container-fluid -->
+<script src="~/Assets/Calendar/js/jquery.min.js"></script>
+<script src="~/Assets/Calendar/js/popper.min.js"></script>
+<script src="~/Assets/Calendar/js/moment.min.js"></script>
+<script src="~/Assets/Calendar/js/bootstrap.min.js"></script>
+<script src="~/Assets/Calendar/js/simplebar.min.js"></script>
+<script src="~/Assets/Calendar/js/daterangepicker.js"></script>
+<script src="~/Assets/Calendar/js/jquery.stickOnScroll.js"></script>
+<script src="~/Assets/Calendar/js/tinycolor-min.js"></script>
+<script src="~/Assets/Calendar/js/config.js"></script>
+<script src="~/Assets/Calendar/js/fullcalendar.js"></script>
+<script src="~/Assets/Calendar/js/fullcalendar.custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.0/locales/tr.min.js"></script>
+
+<script>
+    /** full calendar */
+    var calendarEl = document.getElementById('calendar');
+    if (calendarEl) {
+        document.addEventListener('DOMContentLoaded', function () {
+            var colors = ['#a50000', '#233479', '#ebd317']; // Renk döngüsü için kullanılacak renkler
+            var colorIndex = 0; // İlk renk
+
+            var calendar = new FullCalendar.Calendar(calendarEl,
+                {
+                    plugins: ['dayGrid', 'timeGrid', 'list', 'bootstrap'],
+                    timeZone: 'UTC',
+                    themeSystem: 'bootstrap',
+                    locale: 'tr',
+                    header:
+                    {
+                        left: 'today, prev, next',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                    },
+                    buttonText: {
+                        prev: 'Önceki',
+                        next: 'Sonraki',
+                        today: 'Bugün', // Bugün
+                        month: 'Ay', // Ay görünümü
+                        week: 'Hafta', // Hafta görünümü
+                        day: 'Gün', // Gün görünümü
+                        list: 'Liste' // Liste görünümü
+                    },
+                    buttonIcons:
+                    {
+                        prev: 'fe-arrow-left',
+                        next: 'fe-arrow-right',
+                        prevYear: 'left-double-arrow',
+                        nextYear: 'right-double-arrow'
+                    },
+                    weekNumbers: true,
+                    eventLimit: true, // allow "more" link when too many events
+                    firstDay: 1,
+                    events: function (fetchInfo, successCallback, failureCallback) {
+                        $.ajax({
+                            url: '/Yonetici/GetApprovedLeaves',
+                            dataType: 'json',
+                            success: function (data) {
+                                // Renk döngüsü eklemek için
+                                var cleanedData = data.map(function (event) {
+                                    var eventColor = colors[colorIndex % colors.length];
+                                    colorIndex++;
+                                    return {
+                                        title: event.title,
+                                        start: event.start,
+                                        end: event.end,
+                                        color: eventColor // Etkinliğe renk ekleyin
+                                    };
+                                });
+                                successCallback(cleanedData);
+                            },
+                            error: function () {
+                                failureCallback();
+                            }
+                        });
+                    },
+                    eventColor: '#a50000' // Varsayılan renk
+                });
+            calendar.render();
+        });
+    }
+</script>
+
+<script src="~/Assets/Calendar/js/jquery.mask.min.js"></script>
+<script src="~/Assets/Calendar/js/select2.min.js"></script>
+<script src="~/Assets/Calendar/js/jquery.steps.min.js"></script>
+<script src="~/Assets/Calendar/js/jquery.validate.min.js"></script>
+<script src="~/Assets/Calendar/js/jquery.timepicker.js"></script>
+<script src="~/Assets/Calendar/js/dropzone.min.js"></script>
+<script src="~/Assets/Calendar/js/uppy.min.js"></script>
+<script src="~/Assets/Calendar/js/quill.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.0/locales/tr.min.js"></script>
+
+
+<script>
+    $('.select2').select2(
+        {
+            theme: 'bootstrap4',
+        });
+    $('.select2-multi').select2(
+        {
+            multiple: true,
+            theme: 'bootstrap4',
+        });
+    $('.drgpicker').daterangepicker(
+        {
+            singleDatePicker: true,
+            timePicker: false,
+            showDropdowns: true,
+            locale:
+            {
+                format: 'MM/DD/YYYY'
+            }
+        });
+    $('.time-input').timepicker(
+        {
+            'scrollDefault': 'now',
+            'zindex': '9999' /* fix modal open */
+        });
+    /** date range picker */
+    if ($('.datetimes').length) {
+        $('.datetimes').daterangepicker(
+            {
+                timePicker: true,
+                startDate: moment().startOf('hour'),
+                endDate: moment().startOf('hour').add(32, 'hour'),
+                locale:
+                {
+                    format: 'M/DD hh:mm A'
+                }
+            });
+    }
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+    $('#reportrange').daterangepicker(
+        {
+            startDate: start,
+            endDate: end,
+            ranges:
+            {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+    cb(start, end);
+    $('.input-placeholder').mask("00/00/0000",
+        {
+            placeholder: "__/__/____"
+        });
+    $('.input-zip').mask('00000-000',
+        {
+            placeholder: "____-___"
+        });
+    $('.input-money').mask("#.##0,00",
+        {
+            reverse: true
+        });
+    $('.input-phoneus').mask('(000) 000-0000');
+    $('.input-mixed').mask('AAA 000-S0S');
+    $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
+        {
+            translation:
+            {
+                'Z':
+                {
+                    pattern: /[0-9]/,
+                    optional: true
+                }
+            },
+            placeholder: "___.___.___.___"
+        });
+    // editor
+    var editor = document.getElementById('editor');
+    if (editor) {
+        var toolbarOptions = [
+            [
+                {
+                    'font': []
+                }],
+            [
+                {
+                    'header': [1, 2, 3, 4, 5, 6, false]
+                }],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [
+                {
+                    'header': 1
+                },
+                {
+                    'header': 2
+                }],
+            [
+                {
+                    'list': 'ordered'
+                },
+                {
+                    'list': 'bullet'
+                }],
+            [
+                {
+                    'script': 'sub'
+                },
+                {
+                    'script': 'super'
+                }],
+            [
+                {
+                    'indent': '-1'
+                },
+                {
+                    'indent': '+1'
+                }], // outdent/indent
+            [
+                {
+                    'direction': 'rtl'
+                }], // text direction
+            [
+                {
+                    'color': []
+                },
+                {
+                    'background': []
+                }], // dropdown with defaults from theme
+            [
+                {
+                    'align': []
+                }],
+            ['clean'] // remove formatting button
+        ];
+        var quill = new Quill(editor,
+            {
+                modules:
+                {
+                    toolbar: toolbarOptions
+                },
+                theme: 'snow'
+            });
+    }
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();</script>
+<script>
+    var uptarg = document.getElementById('drag-drop-area');
+    if (uptarg) {
+        var uppy = Uppy.Core().use(Uppy.Dashboard,
+            {
+                inline: true,
+                target: uptarg,
+                proudlyDisplayPoweredByUppy: false,
+                theme: 'dark',
+                width: 770,
+                height: 210,
+                plugins: ['Webcam']
+            }).use(Uppy.Tus,
+                {
+                    endpoint: 'https://master.tus.io/files/'
+                });
+        uppy.on('complete', (result) => {
+            console.log('Upload complete! We’ve uploaded these files:', result.successful)
+        });
+    }
+</script>
+<script src="~/Assets/Calendar/js/apps.js"></script>

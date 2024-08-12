@@ -1,0 +1,71 @@
+﻿@model IEnumerable<IsTakipSistemiMVC.Models.MailDropdownModel>
+@using System.Globalization
+@{
+    var turkishCulture = new CultureInfo("tr-TR");
+}
+
+<style>
+    .no-hover:hover {
+        background-color: transparent !important; /* Hover durumunda arka plan rengini kaldır */
+    }
+
+    .notification-dot {
+        width: 10px;
+        height: 10px;
+        background-color: #007bff; /* Mesajın yeni olduğunu belirtmek için mavi renk */
+        border-radius: 50%;
+        margin-left: 0px; /* Metin ve nokta arasında boşluk */
+        margin-right: 4px;
+        margin-top: 15px;
+    }
+</style>
+
+<div class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
+        <i class="fa fa-envelope me-lg-2 mail-icon" style="color:var(--dark);">
+            @if (Model != null && Model.Count() > 0)
+            {
+                <div class="notification-dot"></div>
+                <style>
+                    .mail-icon {
+                        padding-left: 10px;
+                    }
+                </style>
+            }
+        </i>
+        
+        <span class="d-none d-lg-inline-flex">Mailler</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-end border-0 rounded-0 rounded-bottom m-0">
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var mail in Model)
+            {
+                <a href="@Url.Action("Oku", "Mail", new { id = mail.MailID })" class="dropdown-item">
+                    <div class="d-flex align-items-center">
+                        <img src="@mail.PersonelFoto" class="rounded-circle" alt="" style="width: 40px; height: 40px;" />
+                        <div class="ms-2">
+                            <h6 class="fw-normal mb-0" style="color:var(--dark);">@mail.PersonelAdSoyad</h6>
+                            <small style="color:var(--dark);">@mail.Konu</small><br />
+                            <small style="color:var(--dark);">@mail.GonderimTarihi.Value.ToString("HH:mm ddd  dd/MM", turkishCulture)</small>
+                        </div>
+                    </div>
+                </a>
+                <hr class="dropdown-divider">
+            }
+        }
+        else
+        {
+            <a href="#" class="dropdown-item no-hover">
+                <div class="d-flex align-items-center">
+                    <div class="alert alert-success">
+                        Okunmamış mailiniz bulunmamaktadır.
+                    </div>
+                </div>
+            </a>
+            <hr class="dropdown-divider">
+        }
+        <a href="@Url.Action("Index","Mail")" class="dropdown-item text-center" style="color:var(--dark)">Bütün Mailleri Gör</a>
+    </div>
+</div>

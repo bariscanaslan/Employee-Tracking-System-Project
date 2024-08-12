@@ -1,0 +1,24 @@
+﻿@model IsTakipSistemiMVC.Models.TBL_BIRIMLER
+@{
+    ViewBag.Title = "Birim Sil";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<div class="h-100 container mt-5">
+    @using (Html.BeginForm("Sil", "Admin", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.birimID)
+        <div class="h-100 pt-5 pb-5 text-center">
+            <h2>@Model.birimAd isimli birim silinecek.</h2>
+            <p>Emin misiniz?</p>
+            <div class="row pt-5 text-center">
+                <div class="col">
+                    <button class="btn btn-danger col-4" type="submit">Sil</button>
+                </div>
+                <div class="col">
+                    @Html.ActionLink("Vazgeç", "Birim", "Admin", new { }, new { @class = "btn btn-success col-4" })
+                </div>
+            </div>
+        </div>
+    }
+</div>

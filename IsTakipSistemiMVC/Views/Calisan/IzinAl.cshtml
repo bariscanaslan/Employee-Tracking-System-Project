@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "İzin Al";
+    Layout = "~/Views/Shared/_layoutCalisan.cshtml";
+    int izinHakki = ViewBag.izinHakki;
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <h3 class="mt-5 mb-3 text-center text-black">
+            İzin Talep Sayfası
+        </h3>
+        <h6 class="text-center">İzin alabileceğiniz gün sayısı: @izinHakki</h6>
+        <div class="card-body">
+            @using (Html.BeginForm("IzinAl", "Calisan", FormMethod.Post))
+            {
+                <div class="mb-3">
+                    <label for="baslangic" class="form-label">Başlangıç Tarihi Giriniz:</label>
+                    <input type="date" class="form-control" id="baslangic" name="baslangic">
+                </div>
+                <div class="mb-3">
+                    <label for="bitis" class="form-label">Bitiş Tarihi Giriniz:</label>
+                    <input type="date" class="form-control" id="bitis" name="bitis">
+                </div>
+                <div class="pt-3 mb-3 ">
+                    <button class="btn btn-primary" type="submit">İzin Talep Et</button>
+                </div>
+            }
+        </div>
+        @if (ViewBag.basarili != null)
+        {
+            <div class="alert alert-success m-3 mb-4">
+                @ViewBag.basarili
+            </div>
+        }
+        @if (ViewBag.izinGunHatasi != null)
+        {
+            <div class="alert alert-danger m-3 mb-4">
+                @ViewBag.izinGunHatasi
+            </div>
+        }
+        @if (ViewBag.tarihHatasi != null)
+        {
+            <div class="alert alert-danger m-3 mb-4">
+                @ViewBag.tarihHatasi
+            </div>
+        }
+        @if (ViewBag.izinTarihHatasi != null)
+        {
+            <div class="alert alert-danger m-3 mb-4">
+                @ViewBag.izinTarihHatasi
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    // Bugünün tarihini al
+    var today = new Date();
+
+    // Tarihi yyyy-MM-dd formatında ayarla
+    var day = ("0" + today.getDate()).slice(-2);
+    var month = ("0" + (today.getMonth() + 1)).slice(-2);
+    var todayFormatted = today.getFullYear() + "-" + month + "-" + day;
+
+    // min özelliğini bugünün tarihi ile ayarla
+    document.getElementById("baslangic").setAttribute("min", todayFormatted);
+    document.getElementById("bitis").setAttribute("min", todayFormatted);
+
+</script>

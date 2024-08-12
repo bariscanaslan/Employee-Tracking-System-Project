@@ -1,0 +1,101 @@
+﻿@model IsTakipSistemiMVC.Models.MailViewModel
+@using System.Globalization
+@{
+    Layout = ViewBag.layout;
+    ViewBag.Title = "Giden Kutusu";
+    var turkishCulture = new CultureInfo("tr-TR");
+}
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <h2 class="text-center">Giden Kutusu</h2>
+    <form id="mailForm" class="mt-5" method="post" action="@Url.Action("TopluIslem", "Mail")">
+        <input type="hidden" name="returnUrl" value="@Request.Url.PathAndQuery" />
+        <div class="d-flex justify-content-center table-wrapper mb-3">
+            <button type="submit" name="islem" value="dbdenSil" class="btn btn-mail-top" id="button-mail" disabled><i class="fa fa-trash" id="i-mail"></i>Sil</button>
+            <button type="submit" name="islem" value="yeniPosta" class="btn" id="button-mail"><i class="fa fa-envelope" id="i-mail"></i>Yeni Posta</button>
+            <button type="submit" name="islem" value="gonderAl" class="btn" id="button-mail"><i class="fa fa-envelope-square" id="i-mail"></i>Gelen Kutusuna Dön</button>
+            <button type="submit" name="islem" value="arsiveGit" class="btn" id="button-mail"><i class="fa fa-inbox" id="i-mail"></i>Arşiv Kutusuna Git</button>
+            <button type="submit" name="islem" value="copeGit" class="btn" id="button-mail"><i class="fa fa-trash-alt" id="i-mail"></i>Çöp Kutusuna Git</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" id="selectAll" />
+                        </th>
+                        <th scope="col"></th>
+                        <th scope="col">Alıcı</th>
+                        <th scope="col">Konu</th>
+                        <th scope="col">Gönderim Tarihi</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var mail in Model.Mailler)
+                    {
+                        var personel = Model.Personeller.FirstOrDefault(p => p.personelID == mail.mailAlici);
+
+                        <tr style="vertical-align: middle;">
+                            <td>
+                                <input type="checkbox" name="selectedMails" value="@mail.mailID" />
+                            </td>
+                            <td>
+                                @if (mail.mailOkunma == false)
+                                {
+                                    <i class="fa fa-circle" style="color:dodgerblue"></i>
+                                }
+                            </td>
+                            <td class="d-flex align-items-center">
+                                <img class="rounded-circle" src="@personel.personelFoto" width="50" height="50" />
+                                <p class="mx-2 my-0">@personel.personelAdSoyad</p>
+                            </td>
+                            <td>@mail.mailKonu</td>
+                            <td>
+                                @mail.mailGonderimTarihi.Value.ToString("HH:mm ddd", turkishCulture)<br />
+                                @mail.mailGonderimTarihi.Value.ToString("dd/MM/yyyy", turkishCulture)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Oku", new { id = mail.mailID})" class="btn btn-info m-1">
+                                    <i class="fa fa-info-circle icon-update"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (ViewBag.mesaj != null)
+            {
+                <div class="alert alert-danger text-center">
+                    @ViewBag.mesaj
+                </div>
+            }
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("selectAll").addEventListener("change", function () {
+        var checkboxes = document.querySelectorAll('input[name="selectedMails"]');
+        for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+        toggleButtons();
+    });
+
+    var checkboxes = document.querySelectorAll('input[name="selectedMails"]');
+    for (var checkbox of checkboxes) {
+        checkbox.addEventListener("change", toggleButtons);
+    }
+
+    function toggleButtons() {
+        var checkboxes = document.querySelectorAll('input[name="selectedMails"]');
+        var anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+        var buttons = document.querySelectorAll('.btn.btn-mail-top');
+        for (var button of buttons) {
+            button.disabled = !anyChecked;
+        }
+    }
+</script>

@@ -1,0 +1,174 @@
+﻿@model IsTakipSistemiMVC.Models.BirimYetkiTurler
+@{
+    ViewBag.Title = "Personel Ekle";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <h4 class="mt-5 mb-3 text-center">
+            YENİ PERSONEL EKLE
+        </h4>
+        <div class="card-body">
+            @using (Html.BeginForm("Olustur", "Personel", FormMethod.Post))
+            {
+                <div class="mb-3">
+                    <label class="form-label" for="adSoyad">Personel Ad Soyad:</label>
+                    <input type="text" class="form-control" id="adSoyad" name="adSoyad" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="kullaniciAd">Personel Kullanıcı Adı:</label>
+                    <input type="text" class="form-control" id="kullaniciAd" name="kullaniciAd" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="sifre">Personel Şifre:</label>
+                    <input type="password" class="form-control" id="sifre" name="sifre" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="birim">Personel Birimi:</label>
+                    <select id="birim" class="form-select" name="birim">
+                        @foreach (var item in Model.birimlerList)
+                        {
+                            <option value="@item.birimID">@item.birimAd</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3 ">
+                    <label class="form-label" for="yetkiTur">Personel Yetki Türü:</label>
+                    <select id="yetkiTur" class="form-select" name="yetkiTur">
+                        @foreach (var item in Model.yetkiTurlerList)
+                        {
+                            <option value="@item.yetkiTurID">@item.yetkiTurAd</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="dogumTarihi">Personel Doğum Tarihi:</label>
+                    <input type="date" class="form-control" id="dogumTarihi" name="dogumTarihi" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="mailAdresi">Personel Mail Adresi:</label>
+                    <input type="email" class="form-control" id="mailAdresi" name="mailAdresi" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="telefon">Personel Telefon Numarası:</label>
+                    <input type="text" class="form-control" id="telefon" name="telefon" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="foto">Personel Fotoğraf:</label>
+                    <input type="text" class="form-control" id="foto" name="foto" />
+                    <small>Lütfen bir link giriniz!</small>
+                </div>
+
+                <div class="col-12 pt-3">
+                    <button type="submit" class="btn btn-danger">Personel Ekle</button>
+                </div>
+
+            }
+        </div>
+    </div>
+    <div id="errorMessages" class="alert alert-danger d-none mt-3"></div>
+
+    @if (ViewBag.mesaj != null)
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            @ViewBag.mesaj
+        </div>
+    }
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const adSoyadInput = document.getElementById('adSoyad');
+        const kullaniciAdInput = document.getElementById('kullaniciAd');
+        const sifreInput = document.getElementById('sifre');
+        const dogumTarihiInput = document.getElementById('dogumTarihi');
+        const mailAdresiInput = document.getElementById('mailAdresi');
+        const telefonInput = document.getElementById('telefon');
+        const fotoInput = document.getElementById('foto');
+        const errorMessagesDiv = document.getElementById('errorMessages');
+
+        form.addEventListener('submit', function (event) {
+            let errorMessage = '';
+
+            const adSoyadValue = adSoyadInput.value.trim();
+            const kullaniciAdValue = kullaniciAdInput.value.trim();
+            const sifreValue = sifreInput.value.trim();
+            const dogumTarihiValue = dogumTarihiInput.value.trim();
+            const mailAdresiValue = mailAdresiInput.value.trim();
+            const telefonValue = telefonInput.value.trim();
+            const fotoValue = fotoInput.value.trim();
+
+            // Function to validate if the input is a URL
+            function isValidURL(str) {
+                const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+                    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+                    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+                    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+                    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+                    '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+                return !!pattern.test(str);
+            }
+
+            // Function to validate if the input is an email
+            function isValidEmail(email) {
+                const pattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                return pattern.test(email);
+            }
+
+            // Validate adSoyad
+            if (adSoyadValue === '') {
+                errorMessage += 'Personel ad soyad boş olamaz.<br>';
+            } else if (!isNaN(adSoyadValue)) {
+                errorMessage += 'Personel ad soyad sadece sayı olamaz.<br>';
+            } else if (/\d/.test(adSoyadValue)) {
+                errorMessage += 'Personel ad soyad sayı içeremez.<br>';
+            } else if (adSoyadValue.length < 3) {
+                errorMessage += 'Personel ad soyad 3 karakterden küçük olamaz.<br>';
+            }
+
+            // Validate kullaniciAd
+            if (kullaniciAdValue === '') {
+                errorMessage += 'Personel kullanıcı adı boş olamaz.<br>';
+            } else if (kullaniciAdValue.length < 3) {
+                errorMessage += 'Personel kullanıcı adı 3 karakterden küçük olamaz.<br>';
+            } else if (!isNaN(kullaniciAdValue)) {
+                errorMessage += 'Personel kullanıcı adı sadece sayı olamaz.<br>';
+            }
+
+            // Validate sifre
+            if (sifreValue === '') {
+                errorMessage += 'Personel şifresi boş olamaz.<br>';
+            } else if (sifreValue.length < 5) {
+                errorMessage += 'Personel geçici şifresi 5 karakterden küçük olamaz.<br>';
+            }
+
+            // Validate dogumTarihi
+            if (dogumTarihiValue === '') {
+                errorMessage += 'Doğum tarihi boş olamaz. <br>';
+            }
+
+            // Validate mailAdresi
+            if (!isValidEmail(mailAdresiValue)) {
+                errorMessage += 'Personel mail adresi için mail adresi formatında girdi sağlayınız! <br>';
+            }
+
+            // Validate foto
+            if (!isValidURL(fotoValue)) {
+                errorMessage += 'Personel fotoğrafı için link formatında girdi sağlayınız.<br>';
+            }
+
+            if (errorMessage !== '') {
+                errorMessagesDiv.innerHTML = errorMessage;
+                errorMessagesDiv.classList.remove('d-none');
+                event.preventDefault();
+            } else {
+                errorMessagesDiv.classList.add('d-none');
+            }
+        });
+    });
+</script>

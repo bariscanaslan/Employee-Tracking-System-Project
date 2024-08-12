@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "Menü Ekle";
+    Layout = ViewBag.layout;
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="mt-3 mb-5 text-center" style="color: var(--dark);">MENÜ EKLE</h3>
+            @using (Html.BeginForm("YemekEkle", "Yemek", FormMethod.Post, new { @class = "row g-3" }))
+            {
+                <div class="row mb-4">
+                    <div class="col-8">
+                        <label class="form-label" for="YemekAdi1">Yemek 1</label>
+                        <input type="text" class="form-control" id="YemekAdi1" name="YemekAdi1" />
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label" for="Kalori1">Kalori 1</label>
+                        <input type="number" class="form-control" id="Kalori1" name="Kalori1" />
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-8">
+                        <label class="form-label" for="YemekAdi2">Yemek 2</label>
+                        <input type="text" class="form-control" id="YemekAdi2" name="YemekAdi2" />
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label" for="Kalori2">Kalori 2</label>
+                        <input type="number" class="form-control" id="Kalori2" name="Kalori2" />
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-8">
+                        <label class="form-label" for="YemekAdi3">Yemek 3</label>
+                        <input type="text" class="form-control" id="YemekAdi3" name="YemekAdi3" />
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label" for="Kalori3">Kalori 3</label>
+                        <input type="number" class="form-control" id="Kalori3" name="Kalori3" />
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-8">
+                        <label class="form-label" for="YemekAdi4">Yemek 4</label>
+                        <input type="text" class="form-control" id="YemekAdi4" name="YemekAdi4" />
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label" for="Kalori4">Kalori 4</label>
+                        <input type="number" class="form-control" id="Kalori4" name="Kalori4" />
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-8">
+                        <label class="form-label" for="YemekAdi5">Yemek 5</label>
+                        <input type="text" class="form-control" id="YemekAdi5" name="YemekAdi5" />
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label" for="Kalori5">Kalori 5</label>
+                        <input type="number" class="form-control" id="Kalori5" name="Kalori5" />
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-8">
+                        <label class="form-label" for="YemekAdi6">Yemek 6</label>
+                        <input type="text" class="form-control" id="YemekAdi6" name="YemekAdi6" />
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label" for="Kalori6">Kalori 6</label>
+                        <input type="number" class="form-control" id="Kalori6" name="Kalori6" />
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-8">
+                        <label class="form-label" for="YemekAdi7">Yemek 7</label>
+                        <input type="text" class="form-control" id="YemekAdi7" name="YemekAdi7" />
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label" for="Kalori7">Kalori 7</label>
+                        <input type="number" class="form-control" id="Kalori7" name="Kalori7" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <label class="form-label" for="YemekAdi8">Yemek 8</label>
+                        <input type="text" class="form-control" id="YemekAdi8" name="YemekAdi8" />
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label" for="Kalori8">Kalori 8</label>
+                        <input type="number" class="form-control" id="Kalori8" name="Kalori8" />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="Tarih">Tarih</label>
+                    <input type="date" class="form-control" id="Tarih" name="Tarih" />
+                </div>
+                if (TempData["yemekEklendi"] != null)
+                {
+                    <div class="alert alert-success text-center">
+                        @TempData["yemekEklendi"]
+                    </div>
+                }
+                if (TempData["yemekEklenemedi"] != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @TempData["yemekEklenemedi"]
+                    </div>
+                }
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Menü Ekle</button>
+                </div>
+
+            }
+
+        </div>
+    </div>
+    <div id="errorMessages" class="alert alert-danger d-none mt-3"></div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var isValid = true;
+            var errorMessages = '';
+
+            // Validate each YemekAdi and Kalori fields
+            for (var i = 1; i <= 8; i++) {
+                var yemekAdi = document.getElementById('YemekAdi' + i);
+                var kalori = document.getElementById('Kalori' + i);
+
+                if (yemekAdi && yemekAdi.value.trim() === '') {
+                    errorMessages += 'Yemek ' + i + ' adı boş olamaz.<br>';
+                    isValid = false;
+                } else if (yemekAdi && /\d/.test(yemekAdi.value)) {
+                    errorMessages += 'Yemek ' + i + ' adı sayı içermemelidir.<br>';
+                    isValid = false;
+                }
+
+                if (kalori && kalori.value.trim() === '') {
+                    errorMessages += 'Yemek ' + i + ' kalorisi boş olamaz.<br>';
+                    isValid = false;
+                } else if (kalori && kalori.value < 0) {
+                    errorMessages += 'Yemek ' + i + ' kalorisi negatif olamaz.<br>';
+                    isValid = false;
+                }
+            }
+
+            // Validate Tarih
+            var tarihInput = document.getElementById('Tarih');
+            if (tarihInput && tarihInput.value.trim() === '') {
+                errorMessages += 'Tarih alanı boş olamaz.<br>';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                var errorMessagesDiv = document.getElementById('errorMessages');
+                if (!errorMessagesDiv) {
+                    errorMessagesDiv = document.createElement('div');
+                    errorMessagesDiv.id = 'errorMessages';
+                    document.querySelector('form').prepend(errorMessagesDiv);
+                }
+                errorMessagesDiv.innerHTML = errorMessages;
+                errorMessagesDiv.classList.remove('d-none');
+                event.preventDefault();
+            } else {
+                var errorMessagesDiv = document.getElementById('errorMessages');
+                if (errorMessagesDiv) {
+                    errorMessagesDiv.classList.add('d-none');
+                }
+            }
+        });
+    });
+</script>
+

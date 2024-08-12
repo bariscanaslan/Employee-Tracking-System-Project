@@ -1,0 +1,31 @@
+﻿#duyuru-info-whole-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Dikey ortalama */
+    align-items: center; /* Yatay ortalama */
+    text-align: center;
+    background-color: var(--secondary);
+    width: 1200px;
+    min-height: 1200px;
+    margin: 0 auto; /* Ortalamak için */
+    border-radius: 20px;
+    border: 2px solid var(--dark);
+}
+
+#duyuru-info-baslik {
+    margin-top: 50px;
+}
+
+#duyuru-info-baslik, #duyuru-info-icerik, #duyuru-info-tarih, #duyuru-info-birim, #duyuru-info-kisi {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#duyuru-info-mBaslik, #duyuru-info-mIcerik, #duyuru-info-mTarih, #duyuru-info-mBirim, #duyuru-info-mKisi {
+    font-size: 18px;
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}

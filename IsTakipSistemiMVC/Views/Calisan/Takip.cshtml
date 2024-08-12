@@ -1,0 +1,80 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IsTakipSistemiMVC.Models.isDurumModel
+
+@{
+    ViewBag.Title = "İş Takip Sayfası";
+    Layout = "~/Views/Shared/_layoutCalisan.cshtml";
+    ViewBag.tabloTitle = "İş Takip Tablosu";
+    int pageNumber = ViewBag.PageNumber;
+    int pageSize = ViewBag.PageSize;
+    int totalPages = ViewBag.TotalPages;
+}
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="mt-5 ">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container mt-5">
+    @foreach (var isDurum in Model.isDurumlar.Skip((pageNumber - 1) * pageSize).Take(pageSize))
+    {
+        <div class="card">
+            <div class="card-header text-center" id="card-calisan-takip" style="">
+                @isDurum.isBaslik
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>İş Açıklaması:</b> @isDurum.isAciklama</li>
+                    <li class="list-group-item"><b>İletilen Tarih:</b> @isDurum.iletilenTarih</li>
+                    <li class="list-group-item"><b>Yapılan Tarih:</b> @isDurum.yapilanTarih</li>
+                    <li class="list-group-item"><b>İş Durumu:</b> @isDurum.durumAd</li>
+                    <li class="list-group-item"><b>İş Yorumu:</b> @(isDurum.isYorum  != null ? isDurum.isYorum : "-")</li>
+                </ul>
+            </div>
+        </div>
+
+        <br />
+    }
+</div>
+
+<!-- Pagination -->
+<div class="d-flex justify-content-center mt-2 mb-3">
+    <ul class="pagination pagination-sm">
+        @if (pageNumber > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Takip", new { page = 1 })" aria-label="First">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Takip", new { page = pageNumber - 1 })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == pageNumber ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Takip", new { page = i })">@i</a>
+            </li>
+        }
+
+        @if (pageNumber < totalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Takip", new { page = pageNumber + 1 })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Takip", new { page = totalPages })" aria-label="Last">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

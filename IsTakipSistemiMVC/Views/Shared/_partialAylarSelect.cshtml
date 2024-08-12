@@ -1,0 +1,26 @@
+﻿@{
+    var aylar = new Dictionary<string, string>
+{
+        { "01", "Ocak" },
+        { "02", "Şubat" },
+        { "03", "Mart" },
+        { "04", "Nisan" },
+        { "05", "Mayıs" },
+        { "06", "Haziran" },
+        { "07", "Temmuz" },
+        { "08", "Ağustos" },
+        { "09", "Eylül" },
+        { "10", "Ekim" },
+        { "11", "Kasım" },
+        { "12", "Aralık" }
+    };
+}
+
+<select class="form-select" name="aylar">
+    @foreach (var ay in aylar)
+    {
+        <option value="@ay.Key" @(ay.Key == (ViewBag.SelectedAy ?? "01") ? "selected" : "")>
+            @ay.Value
+        </option>
+    }
+</select>

@@ -1,0 +1,171 @@
+﻿@model IEnumerable<IsTakipSistemiMVC.Models.TBL_PERSONELLER>
+
+@{
+    ViewBag.Title = "Personel Tablosu";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+    ViewBag.tabloTitle = "Personel Tablosu";
+}
+
+<div class="mt-5">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container-fluid">
+    <div class="btn_group pt-5">
+        <form id="searchForm" method="get" action="/Personel/Search" class="d-inline-block">
+            <input type="text" id="searchInput" name="searchTerm" class="form-control d-inline-block" style="width: auto; display: inline-block;" placeholder="Ara">
+            <button type="submit" class="btn btn-default" title="Search"><i class="fas fa-search"></i> Personel Ara</button>
+        </form>
+        <form method="get" action="/Personel/Index" class="d-inline-block">
+            <button type="submit" class="btn btn-default" title="Reset"><i class="fas fa-times"></i> Aramayı Sıfırla</button>
+        </form>
+        <div class="d-inline-block text-center ">
+            <i class="fa fa-user-plus"></i> @Html.ActionLink("Yeni Personel Ekle", "Olustur", "Personel", new { }, new { @style = "color: var(--dark)" })
+        </div>
+    </div>
+    <div class="table-custom table-wrapper p-3">
+        <table id="personelTable" class="table table-hover table-responsive">
+            <tr class="text-center">
+                <th scope="col">#</th>
+                <th onclick="sortTable(1)">Ad Soyad <span class="sortable-icon">▼</span></th>
+                <th scope="col">Kullanıcı Adı</th>
+                <th scope="col">Parola</th>
+                <th scope="col">Fotoğraf</th>
+                <th scope="col">Birim</th>
+                <th scope="col">Yetki Türü</th>
+                <th scope="col">Doğum Tarihi</th>
+                <th scope="col">Mail Adresi</th>
+                <th scope="col">Telefon Numarası</th>
+                <th scope="col">Personel İzin Gün Sayısı</th>
+                <th scope="col">İşlemler</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>@item.personelID</td>
+                    <td>@item.personelAdSoyad</td>
+                    <td>@item.personelKullaniciAdi</td>
+                    <td>@item.personelParola</td>
+                    <td>
+                        <img src="@item.personelFoto" alt="Personel Fotoğrafı" class="img-thumbnail" style="width: 60px; height: 60px;" />
+                    </td>
+                    @if (item.TBL_BIRIMLER == null)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@item.TBL_BIRIMLER.birimAd</td>
+                    }
+                    <td>@item.TBL_YETKITURLER.yetkiTurAd</td>
+
+                    @if (item.personelDogumTarihi == null)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@(item.personelDogumTarihi.HasValue ? item.personelDogumTarihi.Value.ToString("dd/MM/yyyy") : "")</td>
+
+                    }
+                    @if (item.mailAdresi == null)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@item.mailAdresi</td>
+                    }
+                    @if (item.telefonNumarasi == null)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@item.telefonNumarasi</td>
+                    }
+                    <td>@item.personelIzinGun</td>
+                    <td>
+                        <!--İŞLEMLER-->
+                        @if (item.TBL_BIRIMLER == null)
+                        {
+                            <a href="@Url.Action("Guncelle", new { id = item.personelID })" class="btn btn-success m-1">
+                                <i class="fa fa-edit icon-update"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Guncelle", new { id = item.personelID })" class="btn btn-success m-1">
+                                <i class="fa fa-edit icon-update"></i>
+                            </a>
+                            <a href="@Url.Action("Sil", new { id = item.personelID })" class="btn btn-danger m-1">
+                                <i class="fa fa-trash icon-update"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function (event) {
+        var searchInput = document.getElementById('searchInput').value;
+        if (!searchInput.trim()) {
+            event.preventDefault(); // Formun gönderilmesini engeller
+            window.location.href = "/Personel/Index"; // Tüm kayıtları görüntüler
+        }
+    });
+
+    // Sort Function
+    function sortTable(n) {
+        var table = document.getElementById("personelTable");
+        var rows = table.rows;
+        var switching = true;
+        var shouldSwitch;
+        var dir = "asc";
+        var switchcount = 0;
+        var icons = table.querySelectorAll(".sortable-icon");
+
+        while (switching) {
+            switching = false;
+            var rowsArray = Array.prototype.slice.call(rows, 1);
+
+            for (var i = 0; i < rowsArray.length - 1; i++) {
+                shouldSwitch = false;
+                var x = rowsArray[i].getElementsByTagName("TD")[n];
+                var y = rowsArray[i + 1].getElementsByTagName("TD")[n];
+
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+
+            if (shouldSwitch) {
+                rowsArray[i].parentNode.insertBefore(rowsArray[i + 1], rowsArray[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+
+        for (var i = 0; i < icons.length; i++) {
+            icons[i].innerHTML = "▼";
+        }
+        icons[n].innerHTML = dir === "asc" ? "▲" : "▼";
+    }
+</script>

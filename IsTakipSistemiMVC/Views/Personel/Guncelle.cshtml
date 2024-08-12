@@ -1,0 +1,154 @@
+﻿@model IsTakipSistemiMVC.Models.TBL_PERSONELLER
+@{
+    ViewBag.Title = "Personel Güncelle";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <h4 class="mt-5 mb-3 text-center">
+            PERSONEL GÜNCELLE
+        </h4>
+        <div class="card-body">
+            @using (Html.BeginForm("Guncelle", "Personel", FormMethod.Post))
+            {
+                <input type="hidden" value="@Model.personelID" name="id" />
+                <div class="mb-3">
+                    <label for="adSoyad" class="form-label">Personel Ad Soyad</label>
+                    <input type="text" class="form-control " id="adSoyad" name="adSoyad" value="@Model.personelAdSoyad" />
+                </div>
+                <div class="mb-3">
+                    <label for="kullaniciAd" class="form-label">Personel Kullanıcı Ad</label>
+                    <input type="text" class="form-control " id="kullaniciAd" name="kullaniciAd" value="@Model.personelKullaniciAdi" />
+                </div>
+                <div class="mb-3">
+                    <label for="sifre" class="form-label">Personel Şifre</label>
+                    <input type="text" class="form-control " id="sifre" name="sifre" value="@Model.personelParola" />
+                </div>
+                <div class="mb-3 ">
+                    <label for="foto" class="form-label">Personel Fotoğraf</label>
+                    <input type="text" class="form-control " id="foto" name="foto" value="@Model.personelFoto" />
+                </div>
+                <div class="mb-3 ">
+                    <label for="dogumTarihi" class="form-label">Personel Doğum Tarihi</label>
+                    <input type="date" class="form-control " id="dogumTarihi" name="dogumTarihi" value="@(Model.personelDogumTarihi.HasValue ? Model.personelDogumTarihi.Value.ToString("yyyy-MM-dd") : "")" />
+                </div>
+                <div class="mb-3 ">
+                    <label for="mailAdresi" class="form-label">Personel Mail Adresi</label>
+                    <input type="text" class="form-control " id="mailAdresi" name="mailAdresi" value="@Model.mailAdresi" />
+                </div>
+                <div class="mb-3 ">
+                    <label for="telefonNumarasi" class="form-label">Personel Telefon Numarası</label>
+                    <input type="text" class="form-control " id="telefonNumarasi" name="telefonNumarasi" value="@Model.telefonNumarasi" />
+                </div>
+                <div class="mb-3 ">
+                    <label for="izinGun" class="form-label">Personel İzin Gün Sayısı</label>
+                    <input type="number" class="form-control " id="izinGun" name="izinGun" value="@Model.personelIzinGun" />
+                    <small style="color:red">SADECE HATALI DURUMLARDA GÜNCELLEYİNİZ! GÜNCELLENME KAYITLARI TUTULMAKTADIR!</small>
+                </div>
+                <div class="col-12 pt-3">
+                    <button class="btn btn-success" type="submit">Personel Güncelle</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div id="errorMessages" class="alert alert-danger d-none mt-3"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const adSoyadInput = document.getElementById('adSoyad');
+        const kullaniciAdInput = document.getElementById('kullaniciAd');
+        const sifreInput = document.getElementById('sifre');
+        const dogumTarihiInput = document.getElementById('dogumTarihi');
+        const mailAdresiInput = document.getElementById('mailAdresi');
+        const telefonInput = document.getElementById('telefonNumarasi');
+        const fotoInput = document.getElementById('foto');
+        const izinGunInput = document.getElementById('izinGun'); 
+        const errorMessagesDiv = document.getElementById('errorMessages');
+
+        form.addEventListener('submit', function (event) {
+            let errorMessage = '';
+
+            const adSoyadValue = adSoyadInput.value.trim();
+            const kullaniciAdValue = kullaniciAdInput.value.trim();
+            const sifreValue = sifreInput.value.trim();
+            const dogumTarihiValue = dogumTarihiInput.value.trim();
+            const mailAdresiValue = mailAdresiInput.value.trim();
+            const telefonValue = telefonInput.value.trim();
+            const fotoValue = fotoInput.value.trim();
+            const izinGunValue = izinGunInput.value.trim();
+
+            function isValidURL(str) {
+                const pattern = new RegExp('^(https?:\\/\\/)?' +
+                    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' +
+                    '((\\d{1,3}\\.){3}\\d{1,3}))' +
+                    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+                    '(\\?[;&a-z\\d%_.~+=-]*)?' +
+                    '(\\#[-a-z\\d_]*)?$', 'i');
+                return !!pattern.test(str);
+            }
+
+            function isValidEmail(email) {
+                const pattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                return pattern.test(email);
+            }
+
+            if (adSoyadValue === '') {
+                errorMessage += 'Personel ad soyad boş olamaz.<br>';
+            } else if (!isNaN(adSoyadValue)) {
+                errorMessage += 'Personel ad soyad sadece sayı olamaz.<br>';
+            } else if (/\d/.test(adSoyadValue)) {
+                errorMessage += 'Personel ad soyad sayı içeremez.<br>';
+            } else if (adSoyadValue.length < 3) {
+                errorMessage += 'Personel ad soyad 3 karakterden küçük olamaz.<br>';
+            }
+
+            if (kullaniciAdValue === '') {
+                errorMessage += 'Personel kullanıcı adı boş olamaz.<br>';
+            } else if (kullaniciAdValue.length < 3) {
+                errorMessage += 'Personel kullanıcı adı 3 karakterden küçük olamaz.<br>';
+            } else if (!isNaN(kullaniciAdValue)) {
+                errorMessage += 'Personel kullanıcı adı sadece sayı olamaz.<br>';
+            }
+
+            if (sifreValue === '') {
+                errorMessage += 'Personel şifresi boş olamaz.<br>';
+            } else if (sifreValue.length < 5) {
+                errorMessage += 'Personel geçici şifresi 5 karakterden küçük olamaz.<br>';
+            }
+
+            if (dogumTarihiValue === '') {
+                errorMessage += 'Doğum tarihi boş olamaz. <br>';
+            }
+
+            if (!isValidEmail(mailAdresiValue)) {
+                errorMessage += 'Personel mail adresi için mail adresi formatında girdi sağlayınız! <br>';
+            }
+
+            if (!isValidURL(fotoValue)) {
+                errorMessage += 'Personel fotoğrafı için link formatında girdi sağlayınız.<br>';
+            }
+
+            if (izinGunValue === '') {
+                errorMessage += 'İzin gün sayısı boş olamaz.<br>';
+            } else if (izinGunValue > 26) {
+                errorMessage += 'İzin gün sayısı 26 günden fazla olamaz. <br>';
+            } else if (izinGunValue < 0) {
+                errorMessage += 'İzin gün sayısı 0 günden küçük olamaz. <br>';
+            } else if (isNaN(izinGunValue)) {
+                errorMessage += 'İzin gün sayısına sayı harici bir değer girdisi sağlanamaz. <br>';
+            }
+
+
+            if (errorMessage !== '') {
+                errorMessagesDiv.innerHTML = errorMessage;
+                errorMessagesDiv.classList.remove('d-none');
+                event.preventDefault();
+            } else {
+                errorMessagesDiv.classList.add('d-none');
+            }
+        });
+    });
+</script>

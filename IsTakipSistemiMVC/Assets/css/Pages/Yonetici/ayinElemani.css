@@ -1,0 +1,36 @@
+﻿.div-getir-yonetici-ayinElemani {
+    background-color: var(--dark);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.badge-yonetici-ayinElemani {
+    background-color: #a50000;
+    border-radius: 40px;
+    font-size: 14px;
+}
+
+.h6-yonetici-ayinElemani {
+    font-size: 25px;
+}
+
+.div-yonetici-ayinElemani {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    background-color: var(--primary);
+    background-image: url(https://i.pinimg.com/originals/e9/93/d1/e993d191d03335fd09a1987db3f8d39a.gif);
+    margin: 0 auto;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+}
+
+.div-inline-yonetici-ayinElemani {
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.partial-title-yonetici-ayinElemani {
+    width: 100%;
+}

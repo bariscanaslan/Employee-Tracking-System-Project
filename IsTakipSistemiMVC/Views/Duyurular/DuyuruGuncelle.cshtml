@@ -1,0 +1,37 @@
+﻿@model IsTakipSistemiMVC.Models.TBL_DUYURULAR
+@{
+    ViewBag.Title = "Duyuru Güncelle";
+    Layout = ViewBag.layout;
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <h4 class="mt-5 mb-3 text-center">
+            DUYURU GÜNCELLE
+        </h4>
+        <div class="card-body">
+            @using (Html.BeginForm("DuyuruGuncelle", "Duyurular", FormMethod.Post))
+            {
+                <input type="hidden" value="@Model.duyuruID" name="id" />
+                <div class="mb-3">
+                    <label for="duyuruBaslik" class="form-label">Duyuru Başlık</label>
+                    <input type="text" class="form-control " id="duyuruBaslik" name="duyuruBaslik" value="@Model.duyuruBaslik" />
+                </div>
+                <div class="mb-3">
+                    <label for="duyuruIcerik" class="form-label">Duyuru İçerik</label>
+                    <input type="text" class="form-control " id="duyuruIcerik" name="duyuruIcerik" value="@Model.duyuruIcerik" />
+                </div>
+                <div class="col-12 pt-3">
+                    <button class="btn btn-success" type="submit">Duyuru Güncelle</button>
+                </div>
+            }
+            @if (ViewBag.mesaj != null)
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @ViewBag.mesaj
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

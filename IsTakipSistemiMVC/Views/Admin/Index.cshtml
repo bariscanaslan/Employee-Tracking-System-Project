@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "Ana Sayfa";
+    Layout = ViewBag.layout;
+}
+
+@*<script src="~/Scripts/chart.min.js"></script>*@
+<script src="~/Assets/js/chart.min.js"></script>
+@*<script src="~/Theme/darkpan-1.0.0/js/main.js"></script>*@
+<script src="~/Assets/Theme/darkpan-1.0.0/js/main.js"></script>
+
+<!-- CUSTOM CSS BY BCA -->
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+@Html.Action("PartialNotification", "Notification")
+
+<div>
+    @Html.Partial("_partialHosgeldiniz", new { ViewBag.personelYetkiTurAd, ViewBag.personelAd })
+</div>
+<div class="container-fluid mb-5">
+    <div class="pt-2 m-2">
+        <div class="p-4" id="charts-admin">
+            <h5 class="mb-4 text-center">HAFTALIK YAPILAN İŞ GRAFİĞİ</h5>
+            <canvas id="salse-revenue" class="canvas-admin-index"></canvas>
+        </div>
+    </div>
+
+    <div class="mt-5 pb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-12 col-xl-5" id="charts-admin">
+                <div class="rounded h-100 p-4">
+                    <h5 class="mb-4 text-center">BİRİM BAŞINA YAPILAN TOPLAM İŞ SAYISI GRAFİĞİ</h5>
+                    <canvas id="pie-chart" class="canvas-admin-index"></canvas>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xl-5" id="charts-admin">
+                <div class="rounded h-100 p-4">
+                    <h5 class="mb-4 text-center">TOPLAM PERSONEL SAYISI GRAFİĞİ</h5>
+                    <canvas id="doughnut-chart" class="canvas-admin-index"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var ctx2 = document.getElementById('salse-revenue').getContext('2d');
+    var labels = @Html.Raw(ViewBag.gunListesi);
+    var myChart2 = new Chart(ctx2, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Muhasebe",
+                data: @Html.Raw(ViewBag.muhasebe),
+                backgroundColor: "rgba(35, 54, 121, .7)",
+                fill: true
+            },
+            {
+                label: "Bilgi İşlem",
+                data: @Html.Raw(ViewBag.bilgiIslem),
+                backgroundColor: "rgba(165, 0, 0, .5)",
+                fill: true
+            },
+            {
+                label: "Saha Personeli",
+                data: @Html.Raw(ViewBag.sahaPersoneli),
+                backgroundColor: "rgba(236, 216, 23, .5)",
+                fill: true
+            }
+            ]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    var ctx5 = document.getElementById('pie-chart').getContext('2d');
+    // ViewBag'den gelen veriler
+    var labels = @Html.Raw(ViewBag.labelBirim);
+    var data = @Html.Raw(ViewBag.dataIs);
+
+    var colors = [
+        'rgba(35, 54, 121, .7)',
+        'rgba(165, 0, 0, .5)',
+        'rgba(236, 216, 23, .5)',
+    ];
+
+    var myChart5 = new Chart(ctx5, {
+        type: "pie",
+        data: {
+            labels: labels,
+            datasets: [{
+                backgroundColor: colors,
+                data: data
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+
+    var ctx6 = document.getElementById('doughnut-chart').getContext('2d');
+    // ViewBag'den gelen veriler
+    var labels = @Html.Raw(ViewBag.labelBirim);
+    var data = @Html.Raw(ViewBag.personelSayiList);
+
+    // Verilerdeki maksimum değeri bulma
+    var maxDataValue = Math.max(...data);
+
+    var colors = [
+        'rgba(35, 54, 121, .7)',
+        'rgba(165, 0, 0, .5)',
+        'rgba(236, 216, 23, .5)',
+    ];
+
+    var myChart6 = new Chart(ctx6, {
+        type: "doughnut",
+        data: {
+            labels: labels,
+            datasets: [{
+                backgroundColor: colors,
+                data: data
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+</script>

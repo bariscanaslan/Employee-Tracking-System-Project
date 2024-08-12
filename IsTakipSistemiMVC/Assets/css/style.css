@@ -1,0 +1,1121 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/********** Template CSS **********/
+:root {
+    --primary: #F7F7F7;
+    --secondary: #EEEEEE;
+    --dark: #393E46;
+    --light: #929AAB;
+}
+
+* {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+nav {
+    background-color: var(--primary);
+}
+
+    nav.navbar.navbar-expand {
+        box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+    }
+
+a {
+    text-decoration: none;
+}
+
+.container-fluid {
+    background-color: var(--primary);
+    border-radius: 15px;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    border-radius: 50px;
+}
+/*** Layout ***/
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--primary);
+    transition: 0.5s;
+    z-index: 999;
+}
+
+.content {
+    margin-left: 250px;
+    min-height: 100vh;
+    background: var(--secondary);
+    transition: 0.5s;
+}
+
+@media (min-width: 992px) {
+    .sidebar {
+        margin-left: 0;
+    }
+
+        .sidebar.open {
+            margin-left: -250px;
+        }
+
+    .content {
+        width: calc(100% - 250px);
+    }
+
+        .content.open {
+            width: 100%;
+            margin-left: 0;
+        }
+}
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        margin-left: -250px;
+    }
+
+        .sidebar.open {
+            margin-left: 0;
+        }
+
+    .content {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/*** Navbar ***/
+.sidebar .navbar .navbar-nav {
+}
+
+    .sidebar .navbar .navbar-nav .nav-link {
+        padding: 7px 20px;
+        color: var(--dark);
+        font-weight: 500;
+        border-left: 3px solid var(--secondary);
+        border-radius: 0 30px 30px 0;
+        outline: none;
+    }
+
+        .sidebar .navbar .navbar-nav .nav-link:hover,
+        .sidebar .navbar .navbar-nav .nav-link.active {
+            color: var(--dark);
+            background: var(--secondary);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+        }
+
+        .sidebar .navbar .navbar-nav .nav-link i {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+            border-radius: 40px;
+        }
+
+        .sidebar .navbar .navbar-nav .nav-link:hover i,
+        .sidebar .navbar .navbar-nav .nav-link.active i {
+            background: var(--dark);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+        }
+
+.sidebar .navbar .dropdown-toggle::after {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transition: .5s;
+}
+
+.sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
+    transform: rotate(-180deg);
+}
+
+.sidebar .navbar .dropdown-item {
+    padding-left: 25px;
+    border-radius: 0 30px 30px 0;
+    color: var(--dark);
+}
+
+    .sidebar .navbar .dropdown-item:hover,
+    .sidebar .navbar .dropdown-item.active {
+        color: var(--secondary);
+        background: var(--dark);
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    }
+
+.content .navbar .navbar-nav .nav-link {
+    margin-left: 25px;
+    padding: 12px 0;
+    color: var(--dark);
+    outline: none;
+}
+
+    .content .navbar .navbar-nav .nav-link:hover,
+    .content .navbar .navbar-nav .nav-link.active {
+        color: var(--light);
+    }
+
+    .content .navbar .sidebar-toggler,
+    .content .navbar .navbar-nav .nav-link i {
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--secondary);
+        border-radius: 20px;
+    }
+
+.content .navbar .dropdown-item {
+    color: var(--light);
+}
+
+    .content .navbar .dropdown-item:hover,
+    .content .navbar .dropdown-item.active {
+        background: var(--secondary);
+        border-radius: 40px;
+    }
+
+.content .navbar .dropdown-toggle::after {
+    margin-left: 6px;
+    vertical-align: middle;
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transition: .5s;
+}
+
+.content .navbar .dropdown-toggle[aria-expanded=true]::after {
+    transform: rotate(-180deg);
+}
+
+@media (max-width: 575.98px) {
+    .content .navbar .navbar-nav .nav-link {
+        margin-left: 15px;
+    }
+}
+
+
+/*** Date Picker ***/
+.bootstrap-datetimepicker-widget.bottom {
+    top: auto !important;
+}
+
+.bootstrap-datetimepicker-widget .table * {
+    border-bottom-width: 0px;
+}
+
+.bootstrap-datetimepicker-widget .table th {
+    font-weight: 500;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu {
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+    background: var(--primary);
+}
+
+.bootstrap-datetimepicker-widget table td.today::before {
+    border-bottom-color: var(--primary);
+}
+
+
+/*** Testimonial ***/
+.progress .progress-bar {
+    width: 0px;
+    transition: 2s;
+}
+
+/*** Testimonial ***/
+.testimonial-carousel .owl-dots {
+    margin-top: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.testimonial-carousel .owl-dot {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px;
+    width: 15px;
+    height: 15px;
+    border: 5px solid var(--primary);
+    border-radius: 15px;
+    transition: .5s;
+}
+
+    .testimonial-carousel .owl-dot.active {
+        background: var(--custom);
+        border-color: var(--primary);
+    }
+
+/* CUSTOM CODES */
+
+/* DOKUNMA */
+
+#personelIsimFoto {
+    background-color: var(--secondary);
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+#personelFoto {
+    background-color: var(--light);
+}
+
+#girisArkaplan {
+    background-color: var(--dark);
+}
+
+#girisFormu {
+    background-color: var(--primary);
+    border-radius: 40px;
+}
+
+    #girisFormu .form-floating .form-control {
+        color: white;
+    }
+
+#girisButton {
+    background-color: var(--light);
+    color: white;
+}
+
+/* BU KISMA KADAR */
+
+#tableSearch {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    background-color: var(--secondary);
+    color: var(--dark);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-wrapper {
+    overflow-x: auto; /* Yatay kaydırma çubuğu ekler */
+    width: 100%; /* Konteyner genişliğini %100 yapar */
+}
+
+    .table-wrapper th,
+    .table-wrapper td {
+        white-space: nowrap; /* İçeriğin taşmasını engeller */
+        overflow: hidden; /* Taşan içeriği gizler */
+        text-overflow: ellipsis; /* Taşan içeriği üç nokta ile gösterir */
+    }
+
+        .table-wrapper td button {
+            white-space: normal; /* Butonların içeriği normal satırda gösterilsin */
+            overflow: visible; /* Buton içeriği taşarsa gizlenmesin */
+            text-overflow: clip; /* Butonlar için üç nokta eklenmesin */
+        }
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: center;
+}
+
+.table th {
+    cursor: pointer;
+    position: relative;
+}
+
+.sortable-icon {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.btn {
+    border: none !important;
+}
+
+.btn-success {
+    background-color: #23903c;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-info {
+    background-color: #517eb4;
+}
+
+.btn-primary {
+    background-color: #b43838;
+}
+
+    .btn-success:hover,
+    .btn-danger:hover,
+    .btn-primary:hover,
+    .btn-info:hover {
+        background-color: var(--light);
+        color: var(--dark);
+        box-shadow: 2px 2px;
+    }
+
+    .btn-success:active,
+    .btn-danger:active,
+    .btn-primary:active,
+    .btn-info:active {
+        background-color: var(--dark);
+        color: var(--light);
+        box-shadow: 2px 2px;
+    }
+
+.btn_group {
+    text-align: center;
+}
+
+button.btn.btn-default {
+    color: var(--dark);
+}
+
+    button.btn.btn-default:hover {
+        color: var(--light);
+    }
+
+img.img-custom.rounded-circle {
+    margin-top: 100px;
+    width: 450px;
+    height: 510px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-bottom: 30px;
+}
+
+i.fa.fa-info-circle.icon-update {
+    color: white !important;
+}
+
+.profil-custom {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: var(--primary);
+}
+
+    .profil-custom input.form-control {
+        background-color: var(--secondary);
+    }
+
+.scrollable-cell {
+    max-height: 100px;
+    overflow-y: auto;
+    display: block;
+    word-wrap: break-word;
+}
+
+.form-control {
+    background-color: var(--secondary);
+}
+
+/* 
+    ALL CONTROLLERS 
+*/
+
+/*
+    ADMIN CONTROLLER
+*/
+
+/* Index.cshtml */
+
+.canvas-admin-index {
+    background-color: var(--primary);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#charts-admin {
+    background-color: var(--secondary);
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
+}
+
+/* Birim.cshtml */
+
+.table-birim {
+    margin-bottom: 50px;
+}
+
+/* Loglar.cshtml */
+
+.grid-custom a {
+    color: black;
+}
+
+/* Listele.cshtml */
+
+.div-admin-listele {
+    border-radius: 20px;
+    background-color: var(--dark);
+}
+
+.title-admin-listele {
+    vertical-align: middle;
+    padding: 20px;
+}
+
+.bg-admin-listele-takip {
+    border-radius: 20px;
+    border: solid;
+    border-width: 1px;
+    border-color: var(--dark);
+}
+
+.img-admin-listele-takip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-admin-listele-takip {
+    font-weight: 500;
+}
+
+.progress {
+    height: 40px;
+}
+
+.progress-bar {
+    position: relative;
+    font-size: 16px;
+}
+
+.progress-bar-text {
+    color: #fff;
+    line-height: 30px;
+    text-align: center;
+    display: block;
+}
+
+.progress-label {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: -20px;
+}
+
+.bg-kirmizi {
+    background-color: #a50000;
+}
+
+.bg-mavi {
+    background-color: #23367a;
+}
+
+.bg-sari {
+    background-color: #ebd417;
+}
+
+.div-admin-listele-jobs {
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.text-admin-listele-jobs {
+    font-size: 20px;
+}
+
+#badges {
+    background-color: var(--dark) !important;
+}
+
+btn.btn-primary {
+    font-size: 18px;
+}
+
+
+#card-admin-listele-isbaslik {
+    color: black;
+    font-size: 18px;
+    background-color: var(--dark);
+    font-weight: 600
+}
+
+/* Pagination stil ayarları */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+    .pagination .page-item {
+        margin: 0 2px;
+    }
+
+    .pagination .page-link {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: var(--dark);
+        color: white;
+        font-size: 14px;
+        text-decoration: none;
+    }
+
+        .pagination .page-link.active {
+            background-color: var(--primary);
+            color: var(--dark);
+            border: 1px solid var(--primary);
+        }
+
+        .pagination .page-link:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+            border: 1px solid var(--primary);
+        }
+
+    /* Aktif sayfa stilini kontrol etmek için */
+    .pagination .page-item.active .page-link {
+        background-color: var(--primary);
+        color: var(--dark);
+        border: 1px solid var(--primary);
+    }
+
+/*
+    CALISAN CONTROLLER
+*/
+
+/* Index.cshtml */
+
+#container-calisan-index {
+    background-color: var(--primary);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+#icerik-calisan-index {
+    background-color: var(--secondary);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
+}
+
+.canvas-calisan-index {
+    display: block;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 3px;
+}
+
+/* Takip.cshtml */
+
+#card-calisan-takip {
+    background-color: var(--dark);
+    color: white;
+    font-size: 18px;
+}
+
+/* Pagination yapısı yukarda da bulunmaktadır. */
+
+
+/*
+    DUYURULAR CONTROLLER
+*/
+
+/* DuyuruInfo.cshtml */
+
+#duyuru-info-whole-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Dikey ortalama */
+    align-items: center; /* Yatay ortalama */
+    text-align: center;
+    background-color: var(--secondary);
+    width: 1200px;
+    min-height: 1200px;
+    margin: 0 auto; /* Ortalamak için */
+    border-radius: 20px;
+    border: 2px solid var(--dark);
+}
+
+#duyuru-info-baslik {
+    margin-top: 50px;
+}
+
+#duyuru-info-baslik, #duyuru-info-icerik, #duyuru-info-tarih, #duyuru-info-birim, #duyuru-info-kisi {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#duyuru-info-mBaslik, #duyuru-info-mIcerik, #duyuru-info-mTarih, #duyuru-info-mBirim, #duyuru-info-mKisi {
+    font-size: 18px;
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+    MAIL CONTROLLER
+*/
+
+/* Arsiv, CopKutusu, Giden, Index.cshtml */
+
+#button-mail {
+    color: var(--dark);
+}
+
+
+    #button-mail:disabled {
+        outline: none;
+        border: none;
+    }
+
+    #button-mail:enabled {
+        outline: none;
+        border: none;
+    }
+
+#i-mail {
+    color: var(--dark);
+    margin-right: 8px;
+}
+
+#i-mail-oku {
+    color: var(--primary);
+}
+
+/* Gonder, Yanitla.cshtml*/
+#icerik-mail-gonder {
+    background-color: var(--primary);
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.dropdown-mail-gonder {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    z-index: 1000; /* Daha yüksek bir z-index değeri */
+}
+
+.select-dropdown-mail-gonder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* İçerikleri aralıklı şekilde hizala */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: left;
+    background-color: #fff; /* Dropdown arka plan rengi */
+    border-radius: 4px; /* Köşeleri yuvarlat */
+}
+
+    .select-dropdown-mail-gonder img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        border-radius: 50%;
+        display: none; /* Başlangıçta gizle */
+    }
+
+    .select-dropdown-mail-gonder .select-text {
+        flex: 1; /* Metin alanını genişlet */
+    }
+
+.dropdown-icon-mail-gonder {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+    fill: #000; /* İkon rengi */
+    transition: transform 0.3s; /* Aşağı ve yukarı dönüş efektleri */
+}
+
+.dropdown-menu-mail-gonder {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2000; /* Daha yüksek bir z-index değeri */
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+    .dropdown-menu-mail-gonder div {
+        padding: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-menu-mail-gonder img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        border-radius: 50%;
+    }
+
+    .dropdown-menu-mail-gonder div:hover {
+        background-color: #ddd;
+    }
+
+    .dropdown-menu-mail-gonder div.selected {
+        background-color: #ccc;
+    }
+
+/* İkon dönüş efektleri */
+.select-dropdown-mail-gonder.open .dropdown-icon-mail-gonder.down {
+    transform: rotate(180deg); /* Aşağı okunu yukarıya döndür */
+}
+
+.buttons-mail-gonder {
+    width: 120px;
+    height: 35px;
+    font-size: 15px;
+    padding: 2px;
+}
+
+#form-groups-mail-gonder {
+    display: flex;
+    align-items: center;
+}
+
+#labels-mail-gonder {
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+.forms-mail-gonder {
+    background-color: white !important;
+}
+
+/* 
+    SIFRE CONTROLLER 
+*/
+
+/* Index.cshtml */
+
+.div-genel-sifre-degistir {
+    margin-top: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--secondary);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.divs-sifre-degistir {
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.title-sifre {
+    background-color: var(--dark);
+    color: var(--primary);
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.div-sifre-degistir {
+    font-weight: 400;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--primary);
+    border-radius: 0 0 20px 20px;
+    padding: 2rem;
+    color: var(--dark);
+    font-size: 18px;
+    padding-top: 60px;
+}
+
+.div-custom-sifre-degistir {
+    padding: 40px;
+    border-radius: 20px;
+    background: rgb(57,62,70);
+    background: -moz-linear-gradient(317deg, rgba(57,62,70,0.37316176470588236) 18%, rgba(238,238,238,1) 52%);
+    background: -webkit-linear-gradient(317deg, rgba(57,62,70,0.37316176470588236) 18%, rgba(238,238,238,1) 52%);
+    background: linear-gradient(317deg, rgba(57,62,70,0.37316176470588236) 18%, rgba(238,238,238,1) 52%);
+}
+
+.form-control-sifre {
+    border-radius: 0.5rem;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary-sifre{
+    margin-bottom: 20px;
+}
+.btn-primary-sifre:hover {
+    background-color: var(--light) !important;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+/*
+    YEMEK CONTROLLER
+*/
+
+/* Index.cshtml */
+
+#a-confirm-yemek {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+
+input[type="date"] {
+    background-color: #FFFFFF;
+    color: black; /* Metin rengini de siyah yapalım ki beyaz arka planda okunaklı olsun */
+    border: 1px solid #ccc; /* İsteğe bağlı: sınır rengi */
+    padding: 8px; /* İsteğe bağlı: iç boşluk */
+    border-radius: 4px; /* İsteğe bağlı: köşeleri yuvarlat */
+}
+
+#input-groups-yemek {
+    background-color: var(--primary);
+}
+
+/*
+    YONETICI CONTROLLER
+*/
+
+/* Ata.cshtml */
+
+.form-select-yonetici-ata {
+    background-color: var(--primary);
+}
+
+#h4-yonetici-ata {
+    background-color: var(--dark);
+    color: white;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#div-cardHeader-yonetici-ata {
+    color: black;
+    font-size: 18px;
+    background-color: var(--dark);
+    font-weight: 600;
+}
+
+/* AyinElemani.cshtml */
+
+.div-getir-yonetici-ayinElemani {
+    background-color: var(--dark);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.badge-yonetici-ayinElemani {
+    background-color: #a50000;
+    border-radius: 40px;
+    font-size: 14px;
+}
+
+.h6-yonetici-ayinElemani {
+    font-size: 25px;
+}
+
+.div-yonetici-ayinElemani {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    background-color: var(--primary);
+    background-image: url(https://i.pinimg.com/originals/e9/93/d1/e993d191d03335fd09a1987db3f8d39a.gif);
+    margin: 0 auto;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+}
+
+.div-inline-yonetici-ayinElemani {
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.partial-title-yonetici-ayinElemani {
+    width: 100%;
+}
+
+/* Index.cshtml */
+
+td.day.active.today {
+    background-color: var(--dark);
+}
+
+    td.day.active.today:hover {
+        color: var(--dark);
+    }
+
+#div-icerik-yonetici-index {
+    box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
+    border-radius: 20px;
+    background-color: var(--secondary);
+}
+
+.canvas-yonetici-index {
+    background-color: var(--primary);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+#carousel-yonetici-index {
+    background-color: var(--primary);
+    border-radius: 3px;
+}
+
+#div-doviz-yonetici-index {
+    background-color: var(--secondary);
+    box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+#widgets-yonetici-index {
+    box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, 
+        rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, 
+        rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, 
+        rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, 
+        rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, 
+        rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, 
+        rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
+    border-radius: 20px;
+    background-color: var(--secondary);
+}
+
+.card-yonetici-index {
+    width: 18rem;
+    color: black;
+}
+
+/* IzinTalepListesi.cshtml */
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-top: 30px;
+}
+
+.carousel-control-prev-icon {
+    margin-right: 70px;
+}
+
+.carousel-control-next-icon {
+    margin-left: 70px;
+}
+
+    .carousel-control-prev-icon::before,
+    .carousel-control-next-icon::before {
+        content: ''; /* Varsayılan SVG içeriğini kaldırma */
+        display: block;
+        width: 30px; /* İkon boyutu */
+        height: 30px; /* İkon boyutu */
+        background-color: var(--dark); /* İkon rengi */
+    }
+
+.carousel-control-prev-icon::before {
+    clip-path: polygon(25% 50%, 75% 50%, 50% 25%); /* Sol ok */
+    transform: rotate(-90deg); /* İkonu 90 derece döndürme */
+}
+
+.carousel-control-next-icon::before {
+    clip-path: polygon(25% 50%, 75% 50%, 50% 75%); /* Sağ ok */
+    transform: rotate(-90deg); /* İkonu -90 derece döndürme */
+}
+
+td.fc-day.fc-tue.fc-today {
+    background-color: var(--dark);
+}
+
+td.fc-today .fc-day-number {
+    color: white; /* İstediğiniz rengi buraya yazın */
+}
+
+.card-header-yonetici-izinTalep {
+    background-color: var(--dark);
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+}
+
+#i-yonetici-izinTalep {
+    color: var(--primary);
+}
+
+/* Listele.cshtml */
+
+.responsive-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
+
+/* Admin Listele sayfası ile bire bir aynı. */
+
+/*
+    PERSONEL CONTROLLER
+*/
+
+/* Index.cshtml */
+
+#personelTable {
+    vertical-align: middle;
+}
+
+.table-custom {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}

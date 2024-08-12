@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Ayın Elemanı";
+    Layout = "~/Views/Shared/_layoutYonetici.cshtml";
+    ViewBag.tabloTitle = "Ayın Elemanı";
+}
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="container p-5 mt-5">
+    <div class="div-getir-yonetici-ayinElemani">
+        @using (Html.BeginForm("AyinElemani", "Yonetici", FormMethod.Post, new { @class = "row" }))
+        {
+            <div class="col-4">
+                @Html.Partial("_partialAylarSelect", new { selectedAy = ViewBag.SelectedAy })
+            </div>
+            <div class="col-4">
+                <select class="form-select" name="yillar">
+                    @foreach (var yil in ViewBag.yillar)
+                    {
+                        <option value="@yil" @(yil == ViewBag.SelectedYil ? "selected" : "")>@yil</option>
+                    }
+                </select>
+            </div>
+            <div class="col-4 d-grid gap-2 mx-auto">
+                <button class="btn btn-primary" type="submit">Ayın Elemanını Getir</button>
+            </div>
+        }
+    </div>
+    @if (ViewBag.ayinElemani != null)
+    {
+        if (ViewBag.ayinElemani.toplamIs != 0)
+        {
+            <div class="div-yonetici-ayinElemani">
+                <div class="text-center mx-auto my-5 div-inline-yonetici-ayinElemani" style="">
+                    <div class="partial-title-yonetici-ayinElemani">
+                        @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+                    </div>
+                    <img src="@ViewBag.ayinElemani.personelFotosu" class="img-fluid rounded-circle my-3" alt="Personel Fotoğrafı" style="max-width: 400px;" />
+                    <p class="h6 h6-yonetici-ayinElemani">@ViewBag.ayinElemani.personelAdSoyad</p>
+                    <span class="badge p-3 text-center mt-2 badge-yonetici-ayinElemani">
+                        Yapılan İş Toplamı: @ViewBag.ayinElemani.toplamIs
+                    </span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-success mt-5 text-center" role="alert">
+                @ViewBag.isYapilmamis
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-danger mt-5" role="alert">
+            Herhangi bir çalışan bulunamadı!
+        </div>
+    }
+</div>

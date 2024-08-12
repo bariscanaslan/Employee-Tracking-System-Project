@@ -1,0 +1,126 @@
+﻿.div-admin-listele {
+    border-radius: 20px;
+    background-color: var(--dark);
+}
+
+.title-admin-listele {
+    vertical-align: middle;
+    padding: 20px;
+}
+
+.bg-admin-listele-takip {
+    border-radius: 20px;
+    border: solid;
+    border-width: 1px;
+    border-color: var(--dark);
+}
+
+.img-admin-listele-takip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-admin-listele-takip {
+    font-weight: 500;
+}
+
+.progress {
+    height: 40px;
+}
+
+.progress-bar {
+    position: relative;
+    font-size: 16px;
+}
+
+.progress-bar-text {
+    color: #fff;
+    line-height: 30px;
+    text-align: center;
+    display: block;
+}
+
+.progress-label {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: -20px;
+}
+
+.bg-kirmizi {
+    background-color: #a50000;
+}
+
+.bg-mavi {
+    background-color: #23367a;
+}
+
+.bg-sari {
+    background-color: #ebd417;
+}
+
+.div-admin-listele-jobs {
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.text-admin-listele-jobs {
+    font-size: 20px;
+}
+
+#badges {
+    background-color: var(--dark) !important;
+}
+
+btn.btn-primary {
+    font-size: 18px;
+}
+
+
+#card-admin-listele-isbaslik {
+    color: black;
+    font-size: 18px;
+    background-color: var(--dark);
+    font-weight: 600
+}
+
+/* Pagination stil ayarları */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+    .pagination .page-item {
+        margin: 0 2px;
+    }
+
+    .pagination .page-link {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: var(--dark);
+        color: white;
+        font-size: 14px;
+        text-decoration: none;
+    }
+
+        .pagination .page-link.active {
+            background-color: var(--primary);
+            color: var(--dark);
+            border: 1px solid var(--primary);
+        }
+
+        .pagination .page-link:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+            border: 1px solid var(--primary);
+        }
+
+    /* Aktif sayfa stilini kontrol etmek için */
+    .pagination .page-item.active .page-link {
+        background-color: var(--primary);
+        color: var(--dark);
+        border: 1px solid var(--primary);
+    }

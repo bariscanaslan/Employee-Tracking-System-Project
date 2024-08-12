@@ -1,0 +1,25 @@
+﻿@model IsTakipSistemiMVC.Models.TBL_DUYURULAR
+@{
+    ViewBag.Title = "Duyuru Sil";
+    Layout = ViewBag.layout;
+}
+
+<div class="h-100 container mt-5">
+    @using (Html.BeginForm("DuyuruSil", "Duyurular", FormMethod.Post))
+    {
+        @Html.HiddenFor(d => d.duyuruID)
+        <div class="h-100 pt-5 pb-5 text-center">
+            <h2>@Model.duyuruBaslik başlıklı duyuru silinecek.</h2>
+            <p class="text-center"><b>İçerik: </b>@Model.duyuruIcerik</p>
+            <p>Emin misiniz?</p>
+            <div class="row pt-5 text-center">
+                <div class="col">
+                    <button class="btn btn-danger col-4" type="submit">Sil</button>
+                </div>
+                <div class="col">
+                    @Html.ActionLink("Vazgeç", "Index", "Duyurular", new { }, new { @class = "btn btn-success col-4" })
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,53 @@
+﻿@model List<IsTakipSistemiMVC.Models.TBL_IZINLER>
+@{
+    ViewBag.Title = "İzinler";
+    Layout = "~/Views/Shared/_layoutCalisan.cshtml";
+    ViewBag.tabloTitle = "İzinler";
+}
+
+
+<div class="mt-5 ">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container mt-5">
+    @foreach (var izin in Model)
+    {
+        <div class="card">
+            <div class="card-header text-center" style="background-color: var(--dark); color:white; font-size: 18px;">
+                İzin Verilen Personel: <img src="@izin.TBL_PERSONELLER.personelFoto" width="40" height="40" class="rounded-circle" />  @izin.TBL_PERSONELLER.personelAdSoyad
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        @if (izin.izinOnay == false && izin.izinRed == false)
+                        {
+                            <div>
+                                <b>İzin Durumu:</b> YÖNETİCİ CEVABI BEKLENİYOR
+                            </div>
+                        }
+                        else if (izin.izinOnay == true && izin.izinRed == false)
+                        {
+                            <div>
+                                <b>İzin Durumu:</b> İZİN ONAYLANDI
+                            </div>
+                        }
+                        else if (izin.izinOnay == false && izin.izinRed == true)
+                        {
+                            <div>
+                                <b>İzin Durumu:</b> İZİN REDDEDİLDİ
+                            </div>
+                        }
+                    </li>
+                    <li class="list-group-item"><b>İzin Verilen Gün Sayısı:</b> @izin.izinGunuSayisi</li>
+                    <li class="list-group-item"><b>İzin Başlangıç Tarihi:</b> @izin.izinBaslangicTarihi.Value.ToString("dd/MM/yyyy")</li>
+                    <li class="list-group-item"><b>İzin Bitiş Tarihi:</b> @izin.izinBitisTarihi.Value.ToString("dd/MM/yyyy")</li>
+                    <li class="list-group-item"><b>İzin Değerlendirilme Tarihi:</b> @izin.izinDegerlendirmeTarihi.Value.ToString("dd/MM/yyyy - HH:mm")</li>
+                </ul>
+            </div>
+        </div>
+
+        <br />
+    }
+</div>
+

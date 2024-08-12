@@ -1,0 +1,34 @@
+﻿@model IsTakipSistemiMVC.Models.TBL_PERSONELLER
+@{
+    ViewBag.Title = "Personel Sil";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<div class="h-100 container mt-5">
+    @using (Html.BeginForm("Sil", "Personel", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.personelID)
+    <div class="h-100 pt-5 pb-5 text-center">
+        @if (ViewBag.mesaj == null)
+        {
+            <h2>@Model.personelAdSoyad isimli personel silinecek.</h2>
+            <p>Emin misiniz?</p>
+            <div class="row pt-5 text-center">
+                <div class="col">
+                    <button class="btn btn-danger col-4" type="submit">Sil</button>
+                </div>
+                <div class="col">
+                    @Html.ActionLink("Vazgeç", "Index", "Personel", new { }, new { @class = "btn btn-success col-4" })
+                </div>
+            </div>
+        }
+        else
+        {
+            <h2>@ViewBag.mesaj</h2>
+            <div class="col mt-5">
+                @Html.ActionLink("Personel Listesine Dön", "Index", "Personel", new { }, new { @class = "btn btn-danger col-4" })
+            </div>
+        }
+    </div>
+    }
+</div>

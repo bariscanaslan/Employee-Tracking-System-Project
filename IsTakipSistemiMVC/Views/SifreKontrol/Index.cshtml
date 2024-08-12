@@ -1,0 +1,119 @@
+﻿@model IsTakipSistemiMVC.Models.TBL_PERSONELLER
+@{
+    Layout = ViewBag.layout;
+    ViewBag.Title = "Şifre Değiştir";
+}
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="container div-genel-sifre-degistir">
+    <div class="h-100 title-sifre">
+        <h1>Merhaba, @Model.personelAdSoyad</h1>
+        <p class="mt-2">Şifrenizi değiştirmek için eski şifrenizi, yeni şifrenizi ve yeni şifrenizin tekrarını giriniz.</p>
+    </div>
+
+    @using (Html.BeginForm("Index", "SifreKontrol", FormMethod.Post, new { id = "sifreDegistirForm" }))
+    {
+        <div class="div-sifre-degistir">
+            @Html.HiddenFor(m => m.personelID)
+            <div class="div-custom-sifre-degistir">
+                <div class="mb-3 d-flex justify-content-center divs-sifre-degistir">
+                    <div class="col-4">
+                        <label for="eskiSifre" class="form-label">Eski Şifre:</label>
+                        <input type="password" id="eskiSifre" class="form-control form-control-sifre" name="eskiSifre" />
+                    </div>
+                </div>
+                <div class="mb-3 d-flex justify-content-center divs-sifre-degistir">
+                    <div class="col-4">
+                        <label for="yeniSifre" class="form-label">Yeni Şifre:</label>
+                        <input type="password" id="yeniSifre" class="form-control form-control-sifre" aria-describedby="passwordHelp" name="yeniSifre" />
+                        <div id="yeniSifreFeedback" class="invalid-feedback">
+                            Şifreniz 6 ile 15 karakter uzunluğunda olmalıdır.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 d-flex justify-content-center divs-sifre-degistir">
+                    <div class="col-4">
+                        <label for="yeniSifreTekrar" class="form-label">Yeni Şifre Tekrar:</label>
+                        <input type="password" id="yeniSifreTekrar" class="form-control form-control-sifre" name="yeniSifreTekrar" />
+                    </div>
+                </div>
+                <div class="pt-4 d-flex justify-content-center">
+                    <button type="submit" id="sifreDegistirButton" class="btn btn-primary btn-primary-sifre" disabled>Şifre Değiştir</button>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('sifreDegistirForm');
+        const basarili = document.getElementById('basarili');
+        const yeniSifre = document.getElementById('yeniSifre');
+        const yeniSifreTekrar = document.getElementById('yeniSifreTekrar');
+        const yeniSifreFeedback = document.getElementById('yeniSifreFeedback');
+        const sifreDegistirButton = document.getElementById('sifreDegistirButton');
+
+        function validatePasswordLength() {
+            const password = yeniSifre.value;
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasDigit = /[0-9]/.test(password);
+
+            let errorMessage = '';
+
+            if (password.length < 6 || password.length > 15) {
+                errorMessage = 'Şifreniz 6 ile 15 karakter uzunluğunda olmalıdır.';
+            } else if (!hasLowerCase) {
+                errorMessage = 'Şifreniz en az bir küçük harf içermelidir.';
+            } else if (!hasUpperCase) {
+                errorMessage = 'Şifreniz en az bir büyük harf içermelidir.';
+            } else if (!hasDigit) {
+                errorMessage = 'Şifreniz en az bir rakam içermelidir.';
+            }
+
+            if (errorMessage) {
+                yeniSifreFeedback.textContent = errorMessage;
+                yeniSifreFeedback.style.display = 'block';
+                return false;
+            } else {
+                yeniSifreFeedback.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validatePasswordMatch() {
+            if (yeniSifre.value !== yeniSifreTekrar.value) {
+                yeniSifreFeedback.textContent = 'Yeni şifreler eşleşmiyor.';
+                yeniSifreFeedback.style.display = 'block';
+                return false;
+            } else {
+                yeniSifreFeedback.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validateForm() {
+            const isPasswordValid = validatePasswordLength();
+            const isPasswordMatch = isPasswordValid && validatePasswordMatch();
+
+            sifreDegistirButton.disabled = !(isPasswordValid && isPasswordMatch);
+        }
+
+        yeniSifre.addEventListener('input', validateForm);
+        yeniSifreTekrar.addEventListener('input', validateForm);
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Formun anında gönderilmesini durdur
+            sifreDegistirButton.disabled = true; // Tekrar tıklamayı önlemek için butonu devre dışı bırak
+            alert('Şifre kontrolü sağlanıyor. Eski şifrenizi doğru girdiğiniz takdirde giriş sayfasına yönlendirileceksiniz.'); // 3 saniye sonra uyarı göster
+
+
+            setTimeout(() => {
+                form.submit(); // Formu gönder
+            }, 3000); // 3 saniye delay
+        });
+    });
+</script>

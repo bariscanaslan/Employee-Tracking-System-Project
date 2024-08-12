@@ -1,0 +1,103 @@
+﻿#icerik-mail-gonder {
+    background-color: var(--primary);
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.dropdown-mail-gonder {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    z-index: 1000; /* Daha yüksek bir z-index değeri */
+}
+
+.select-dropdown-mail-gonder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* İçerikleri aralıklı şekilde hizala */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: left;
+    background-color: #fff; /* Dropdown arka plan rengi */
+    border-radius: 4px; /* Köşeleri yuvarlat */
+}
+    .select-dropdown-mail-gonder img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        border-radius: 50%;
+        display: none; /* Başlangıçta gizle */
+    }
+
+    .select-dropdown-mail-gonder .select-text {
+        flex: 1; /* Metin alanını genişlet */
+    }
+
+.dropdown-icon-mail-gonder {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+    fill: #000; /* İkon rengi */
+    transition: transform 0.3s; /* Aşağı ve yukarı dönüş efektleri */
+}
+
+.dropdown-menu-mail-gonder {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2000; /* Daha yüksek bir z-index değeri */
+    max-height: 200px;
+    overflow-y: auto;
+}
+    .dropdown-menu-mail-gonder div {
+        padding: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-menu-mail-gonder img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        border-radius: 50%;
+    }
+
+    .dropdown-menu-mail-gonder div:hover {
+        background-color: #ddd;
+    }
+
+    .dropdown-menu-mail-gonder div.selected {
+        background-color: #ccc;
+    }
+
+/* İkon dönüş efektleri */
+.select-dropdown-mail-gonder.open .dropdown-icon-mail-gonder.down {
+    transform: rotate(180deg); /* Aşağı okunu yukarıya döndür */
+}
+
+.buttons-mail-gonder {
+    width: 120px;
+    height: 35px;
+    font-size: 15px;
+    padding: 2px;
+}
+
+#form-groups-mail-gonder {
+    display: flex;
+    align-items: center;
+}
+
+#labels-mail-gonder {
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+.forms-mail-gonder {
+    background-color: white !important;
+}

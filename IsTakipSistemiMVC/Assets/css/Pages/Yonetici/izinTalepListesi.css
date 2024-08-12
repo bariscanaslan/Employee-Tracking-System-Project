@@ -1,0 +1,56 @@
+﻿.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-top: 30px;
+}
+
+    .carousel-control-prev-icon{
+        margin-right: 70px;
+    }
+
+    .carousel-control-next-icon{
+        margin-left: 70px;
+    }
+
+    .carousel-control-prev-icon::before,
+    .carousel-control-next-icon::before {
+        content: ''; /* Varsayılan SVG içeriğini kaldırma */
+        display: block;
+        width: 30px; /* İkon boyutu */
+        height: 30px; /* İkon boyutu */
+        background-color: var(--dark); /* İkon rengi */
+    }
+
+    .carousel-control-prev-icon::before {
+        clip-path: polygon(25% 50%, 75% 50%, 50% 25%); /* Sol ok */
+        transform: rotate(-90deg); /* İkonu 90 derece döndürme */
+    }
+
+    .carousel-control-next-icon::before {
+        clip-path: polygon(25% 50%, 75% 50%, 50% 75%); /* Sağ ok */
+        transform: rotate(-90deg); /* İkonu -90 derece döndürme */
+    }
+
+td.fc-day.fc-tue.fc-today {
+    background-color: var(--dark);
+}
+
+td.fc-today .fc-day-number {
+    color: white; /* İstediğiniz rengi buraya yazın */
+}
+
+.card-header-yonetici-izinTalep {
+    background-color: var(--dark);
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+}
+
+#i-yonetici-izinTalep {
+    color: var(--primary);
+}

@@ -1,0 +1,167 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var tumIsler = ViewBag.tumIsler;
+    var pageNumber = ViewBag.pageNumber;
+    var pageSize = ViewBag.pageSize;
+    var totalPages = ViewBag.totalPages;
+}
+
+@{
+    ViewBag.Title = "İş Listesi";
+    Layout = "~/Views/Shared/_layoutYonetici.cshtml";
+}
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="container mt-5 rounded">
+    <div class="div-admin-listele">
+        <h3 class="text-center title-admin-listele text-white">
+            @ViewBag.personel.personelAdSoyad İş Listesi
+        </h3>
+    </div>
+    <div class="row mt-4 mb-4 bg-admin-listele-takip bg-white table-wrapper">
+        <div class="col-6 d-flex justify-content-center align-items-center">
+            <div class="text-center img-admin-listele-takip">
+                <img class="rounded-circle responsive-img" src="@ViewBag.personel.personelFoto" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="text-center">
+                <div class="rounded h-100 mt-4 p-4">
+                    <div class="pg-bar mb-4">
+                        <div class="mb-1 text-admin-listele-takip">Son 7 Günde Yapılan İşler:</div>
+                        <div class="progress mb-1">
+                            <div class="progress-bar bg-kirmizi" role="progressbar" aria-valuenow="@ViewBag.haftalikYuzde" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        @String.Format("{0:F2}", ViewBag.haftalikYuzde)%
+                    </div>
+                    <div class="pg-bar mb-4">
+                        <div class="mb-1 text-takip">Son 30 Günde Yapılan İşler:</div>
+                        <div class="progress mb-1">
+                            <div class="progress-bar bg-mavi" role="progressbar" aria-valuenow="@ViewBag.aylikYuzde" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        @String.Format("{0:F2}", ViewBag.aylikYuzde)%
+                    </div>
+                    <div class="pg-bar mb-4">
+                        <div class="mb-1 text-takip">Toplam Yapılan İşler:</div>
+                        <div class="progress mb-1">
+                            <div class="progress-bar bg-sari" role="progressbar" aria-valuenow="@ViewBag.tumYuzde" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        @String.Format("{0:F2}", ViewBag.tumYuzde)%
+                        <p class="mt-5"><b>*</b> Yüzdelikler, birim çalışanının yaptığı işlerin periyodik toplamının; o periyotta yapılan işlerin tamamına oranını temsil etmektedir.</p>
+                        <p><b>*</b> (Çalışanın o periyotta yaptığı iş / O periyotta yapılan toplam iş) × 100</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="div-admin-listele-jobs">
+            <div class="text-center text-admin-listele-jobs">
+                <br />
+                <span class="badge text-center p-3 mx-2" id="badges">
+                    Son 7 Günde Yapılan İş Sayısı: @ViewBag.haftalikIslerToplami
+                </span>
+                <span class="badge text-center p-3 mx-2" id="badges">
+                    Son 30 Günde Yapılan İş Sayısı: @ViewBag.aylikIslerToplami
+                </span>
+                <span class="badge text-center p-3 mx-2" id="badges">
+                    Toplam Yapılan İş Sayısı: @ViewBag.tumIslerToplami
+                </span>
+            </div>
+            <div class="pb-3 text-center mt-4">
+                <a href="@Url.Action("Takip", "Admin")" class="btn btn-primary">
+                    İş Takip Sayfasına Dön
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.isSayisi != 0 && ViewBag.tumIsler != null && ViewBag.personel != null)
+    {
+        foreach (var isler in tumIsler)
+        {
+            <div class="card border-1">
+                <div class="card-header text-white text-center" id="card-admin-listele-isbaslik">
+                    @isler.isBaslik
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>İş Açıklaması:</b> @isler.isAciklama</li>
+                        <li class="list-group-item"><b>İletilen Tarih:</b> @isler.iletilenTarih.ToString("dd/MM/yyyy HH:mm")</li>
+                        <li class="list-group-item"><b>Yapılan Tarih:</b> @(isler.yapilanTarih != null ? isler.yapilanTarih.ToString("dd/MM/yyyy HH:mm") : "Henüz girilmedi.")</li>
+                        <li class="list-group-item"><b>İş Durumu:</b> @isler.TBL_DURUMLAR.durumAd</li>
+                        <li class="list-group-item"><b>İş Yorumu:</b> @(isler.isYorum  != null ? isler.isYorum : "-")</li>
+                    </ul>
+                </div>
+            </div>
+            <br />
+        }
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-4">
+            <ul class="pagination pagination-sm">
+                @if (pageNumber > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Listele", new { page = 1 })" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Listele", new { page = pageNumber - 1 })" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == pageNumber ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Listele", new { page = i })">@i</a>
+                    </li>
+                }
+
+                @if (pageNumber < totalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Listele", new { page = pageNumber + 1 })" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Listele", new { page = totalPages })" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    else if (ViewBag.isSayisi == 0)
+    {
+        <div class="alert alert-secondary" role="alert">
+            Henüz iş verilmemiş.
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.mesaj
+        </div>
+    }
+
+</div>
+
+<script>
+    // Progress Bar
+    $('.pg-bar').waypoint(function () {
+        $('.progress .progress-bar').each(function () {
+            $(this).css("width", $(this).attr("aria-valuenow") + '%');
+        });
+    }, { offset: '80%' });
+</script>
+
+
+
+

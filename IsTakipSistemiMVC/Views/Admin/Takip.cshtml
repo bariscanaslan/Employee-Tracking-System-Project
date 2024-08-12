@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "İş Takip Sayfası";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+    ViewBag.tabloTitle = "Personel Listesi";
+}
+
+@{
+    var personelList = ViewBag.personeller as List<IsTakipSistemiMVC.Models.TBL_PERSONELLER>;
+    int personelCount = personelList.Count;
+}
+
+
+<div class="mt-5 ">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container mt-5">
+    @using (Html.BeginForm("Takip", "Admin", FormMethod.Post, new { id = "personelForm" }))
+    {
+        <div class="container">
+            @for (int i = 0; i < personelCount; i += 3)
+            {
+                <div class="row mb-3">
+                    @for (int j = i; j < i + 3 && j < personelCount; j++)
+                    {
+                        var per = personelList[j];
+                        <div class="col-md-4 mb-3">
+                            <div class="card personel-card" data-id="@per.personelID" style="cursor: pointer;">
+                                <img src="@per.personelFoto" class="card-img-top" alt="@per.personelAdSoyad" />
+                                <div class="card-body">
+                                    <h5 class="card-title">@per.personelAdSoyad</h5>
+                                    <p class="card-text">Detaylı bilgi için tıklayınız.</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <input type="hidden" name="selectPer" id="selectPer">
+    }
+</div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.personel-card').forEach(function(card) {
+                    card.addEventListener('click', function() {
+                        var personelId = card.getAttribute('data-id');
+                        document.getElementById('selectPer').value = personelId;
+                        document.getElementById('personelForm').submit();
+                    });
+                });
+            });
+</script>

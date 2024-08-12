@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "İş Tamamlama Sayfası";
+    Layout = "~/Views/Shared/_layoutCalisan.cshtml";
+    ViewBag.tabloTitle = "İş Tamamlama Sayfası";
+}
+
+<div class="container">
+    <div class="rounded">
+
+        <div class="mb-5">
+            @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+        </div>
+
+        @if (ViewBag.islerCount != 0)
+        {
+            foreach (var i in ViewBag.isler)
+            {
+                using (Html.BeginForm("Yap", "Calisan", FormMethod.Post))
+                {
+                    <div class="card">
+                        <div class="card-header" style="color: white; background-color: var(--dark); text-align: center;">@i.isBaslik</div>
+                        <div class="card-body">
+                            <input type="hidden" name="isID" value="@i.isID" />
+                            <p class="card-text">
+                                <b> İş Açıklaması: </b> @i.isAciklama
+                            </p>
+                            <div class="mb-3">
+                                <label for="isYorum" class="form-label"><b>Yorum Giriniz: </b></label>
+                                <input type="text" class="form-control" id="isYorum" name="isYorum" style="color:black;" />
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success">İşi Tamamla</button>
+                        </div>
+                    </div>
+                    <br /><br />
+                }
+            }
+
+        }
+
+        else
+        {
+
+            var sonIs = ViewBag.sonIs;
+
+            if (sonIs != null)
+            {
+                <div class="alert alert-success text-center" name="alertMesaj" style="display: @ViewBag.displayStyle;">
+                    @ViewBag.mesaj
+                </div>
+                <h4 class="text-center mt-5 mb-3">YAPTIĞINIZ SON İŞ:</h4>
+                <div class="card border-1">
+                    <div class="card-header text-white text-center p-3" style="color: black; font-size: 18px; background-color: var(--dark); font-weight: 600">
+                    </div>
+                    <div class="mt-3">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><b>İş Başlığı:</b> @sonIs.isBaslik</li>
+                                <li class="list-group-item"><b>İş Açıklaması:</b> @sonIs.isAciklama</li>
+                                <li class="list-group-item"><b>İletilen Tarih:</b> @sonIs.iletilenTarih.ToString("dd/MM/yyyy HH:mm")</li>
+                                <li class="list-group-item"><b>Yapılan Tarih:</b> @(sonIs.yapilanTarih != null ? sonIs.yapilanTarih.ToString("dd/MM/yyyy HH:mm") : "Henüz girilmedi.")</li>
+                                <li class="list-group-item"><b>İş Durumu:</b> @sonIs.TBL_DURUMLAR.durumAd</li>
+                                <li class="list-group-item"><b>İş Yorumu:</b> @(sonIs.isYorum  != null ? sonIs.isYorum : "-")</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+

@@ -1,0 +1,112 @@
+﻿@model List<IsTakipSistemiMVC.Models.IsViewModel>
+@{
+    ViewBag.Title = "İş Ata";
+    Layout = "~/Views/Shared/_layoutYonetici.cshtml";
+}
+<link href="~/Assets/css/Yonetici/ata.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <div class="card">
+        <h4 class="mt-5 mb-3 text-center">
+            @ViewBag.birimAd Birimi İçin İş Atama İşlemi
+        </h4>
+        <div class="card-body">
+            @using (Html.BeginForm("Ata", "Yonetici", FormMethod.Post))
+            {
+                <div class="mb-3">
+                    <label for="isBaslik" class="form-label">İş Başlığını Giriniz:</label>
+                    <input type="text" class="form-control" id="isBaslik" name="isBaslik">
+                </div>
+                <div class="mb-3">
+                    <label for="isAciklama" class="form-label">İş Açıklamasını Giriniz:</label>
+                    <textarea class="form-control" id="isAciklama" name="isAciklama" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="selectPer" class="form-label">İşi Atayacağınız Çalışanı Seçiniz:</label>
+                    <select class="form-select form-select-yonetici-ata" name="selectPer" id="selectPer">
+                        @foreach (var personel in ViewBag.personeller)
+                        {
+                            <option value="@personel.personelID">@personel.personelAdSoyad</option>
+                        }
+                    </select>
+                </div>
+                <div class="pt-3 mb-3 ">
+                    <button class="btn btn-primary" type="submit">İş Ata</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="errorMessages" class="alert alert-danger text-center d-none mt-3"></div>
+
+
+
+    <div class="mt-5">
+        <h4 class="mt-5 mb-3 text-center" id="h4-yonetici-ata">
+            Kabul Edilmemiş İşler: @ViewBag.kei
+        </h4>
+        @foreach (var item in Model)
+        {
+            <div class="card border-1">
+                <div class="card-header text-white text-center p-3" id="div-cardHeader-yonetici-ata">
+                    <li class="list-group-item">İŞ BAŞLIĞI: @item.Is.isBaslik</li>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>İş Atanan Personel:</b> @item.PersonelAdSoyad</li>
+                        <li class="list-group-item"><b>İş Açıklaması:</b> @item.Is.isAciklama</li>
+                        <li class="list-group-item"><b>İletilen Tarih:</b> @(item.Is.iletilenTarih != null ? item.Is.iletilenTarih?.ToString("dd/MM/yyyy HH:mm") : "Hata, lütfen sistem yöneticinize (admin) danışın!")</li>
+                        <li class="list-group-item"><b>İş Durumu:</b> @item.Is.TBL_DURUMLAR.durumAd</li>
+                    </ul>
+                    <div class="pt-2 mb-2 text-center">
+                        <form action="@Url.Action("IptalEt", "Yonetici")" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@item.Is.isID" />
+                            <button class="btn btn-primary" type="submit">İşi İptal Et</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const isBaslikInput = document.getElementById('isBaslik');
+        const isAciklamaInput = document.getElementById('isAciklama');
+        const errorMessagesDiv = document.getElementById('errorMessages'); // Bu div'in HTML'de mevcut olduğundan emin olun
+
+        form.addEventListener('submit', function (event) {
+            let errorMessage = '';
+
+            // Validate isBaslik
+            const isBaslikValue = isBaslikInput.value.trim();
+            if (isBaslikValue === '') {
+                errorMessage = 'İş Başlığı boş olamaz.';
+            } else if (isBaslikValue.length < 3) {
+                errorMessage = 'İş Başlığı 3 karakterden küçük olamaz.';
+            }
+
+            // Validate isAciklama
+            const isAciklamaValue = isAciklamaInput.value.trim();
+            if (errorMessage === '' && isAciklamaValue === '') {
+                errorMessage = 'İş Açıklaması boş olamaz.';
+            } else if (errorMessage === '' && isAciklamaValue.length < 5) { // Örneğin, açıklama için minimum 5 karakter
+                errorMessage = 'İş Açıklaması 5 karakterden küçük olamaz.';
+            }
+
+            if (errorMessage !== '') {
+                errorMessagesDiv.textContent = errorMessage;
+                errorMessagesDiv.classList.remove('d-none');
+                event.preventDefault();
+            } else {
+                errorMessagesDiv.classList.add('d-none');
+            }
+        });
+    });
+</script>
+
+

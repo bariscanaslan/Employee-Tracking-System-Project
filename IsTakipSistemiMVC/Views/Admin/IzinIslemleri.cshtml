@@ -1,0 +1,125 @@
+﻿@model List<IsTakipSistemiMVC.Models.TBL_IZINLER>
+@{
+    ViewBag.Title = "İzin İşlemleri";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+    ViewBag.tabloTitle = "İzin İşlemleri";
+}
+
+<div class="mt-5">
+    @Html.Partial("_partialTitle", new { ViewBag.tabloTitle })
+</div>
+
+<div class="container-fluid">
+    <div class="table-custom table-wrapper p-4">
+        <table id="personelTable" class="table table-hover table-responsive mt-4">
+            <tr class="text-center">
+                <th scope="col">Personel Ad Soyad</th>
+                <th scope="col">İzin Onay Durumu</th>
+                <th scope="col">İzin Başlangıç Tarihi</th>
+                <th scope="col">İzin Bitiş Tarihi</th>
+                <th scope="col">İzin Günü Sayısı</th>
+                <th scope="col">İzin Talep Tarihi</th>
+                <th scope="col">İzin Değerlendirme Tarihi</th>
+                <th scope="col">İşlemler</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>@item.TBL_PERSONELLER.personelAdSoyad</td>
+                    @if (item.izinOnay == true)
+                    {
+                        <td>Onaylandı.</td>
+                    }
+                    else
+                    {
+                        <td>Reddedildi.</td>
+                    }
+                    <td>@item.izinBaslangicTarihi</td>
+                    <td>@item.izinBitisTarihi</td>
+                    <td>@item.izinGunuSayisi</td>
+                    <td>@item.izinTalepTarihi</td>
+                    <td>@item.izinDegerlendirmeTarihi</td>
+                    <!--İŞLEMLER-->
+                    @if (Model != null)
+                    {
+                        <td>
+                            <a href="#" class="btn btn-primary m-1 deleteLeaveButton" data-id="@item.izinID">
+                                Hatalı İzin Sil
+                            </a>
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<div id="confirmationModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog justify-content-center align-items-center align-content-center" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color:red;">
+                    Emin misiniz? İzin sadece hatalıysa silebilirsiniz!
+                    Farklı bir durum tespit edildiği takdirde cezai işlem uygulanacaktır!
+                </h5>
+            </div>
+            <div class="modal-body">
+                <p>İşlemi gerçekleştirmek için şifrenizi giriniz.</p>
+                <input type="password" id="confirmationPassword" class="form-control" placeholder="Şifrenizi girin">
+                <input type="hidden" id="leaveIdToDelete">
+                <div id="errorMessage" class="text-danger mt-2" style="display: none;">Şifre yanlış, lütfen tekrar deneyin.</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmButton">Onayla</button>
+                <button type="button" class="btn btn-success" id="cancelButton">İptal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery ve Bootstrap Kütüphaneleri -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.deleteLeaveButton').on('click', function (e) {
+            e.preventDefault();
+            var leaveId = $(this).data('id');
+            $('#leaveIdToDelete').val(leaveId);
+            $('#confirmationModal').modal('show');
+        });
+
+        $('#confirmButton').on('click', function () {
+            var password = $('#confirmationPassword').val();
+            var correctPassword = '@ViewBag.sifre'; // Doğru şifreyi buraya yazın
+            var leaveId = $('#leaveIdToDelete').val();
+
+            if (password === correctPassword) {
+                $('#confirmationModal').modal('hide');
+
+                // Using form submission instead of redirecting
+                $('<form>', {
+                    'method': 'post',
+                    'action': '@Url.Action("HataliIzinSil", "Admin")'
+                })
+                .append($('<input>', {
+                    'name': 'izinID',
+                    'value': leaveId,
+                    'type': 'hidden'
+                }))
+                .appendTo('body')
+                .submit();
+            } else {
+                $('#errorMessage').show();
+            }
+        });
+
+        $('#confirmationModal').on('hidden.bs.modal', function () {
+            $('#confirmationPassword').val('');
+            $('#errorMessage').hide();
+        });
+
+        $('#cancelButton').on('click', function () {
+            $('#confirmationModal').modal('hide');
+        });
+    });
+</script>

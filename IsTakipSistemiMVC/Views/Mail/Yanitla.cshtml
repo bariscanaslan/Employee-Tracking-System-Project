@@ -1,0 +1,74 @@
+﻿@model IsTakipSistemiMVC.Models.YanitlaViewModel
+@using System.Globalization
+@{
+    Layout = ViewBag.layout;
+    ViewBag.Title = "Yanıtla";
+    var turkishCulture = new CultureInfo("tr-TR");
+}
+
+<script src="~/Assets/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#textarea',
+        license_key: 'gpl'
+    });
+</script>
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <h2 class="text-center mt-3 mb-5">Yanıtlıyorsunuz:</h2>
+
+    @{
+        var mail = Model.OkuModel.Mailler.FirstOrDefault();
+        var personel = Model.OkuModel.Personeller.FirstOrDefault(p => p.personelID == mail.mailGonderen);
+        var birim = Model.OkuModel.Birimler.FirstOrDefault(b => b.birimID == personel.personelBirimID);
+    }
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center p-4">
+                    <img src="@personel.personelFoto" height="60" width="60" class="rounded-circle me-3" />
+                    <div>
+                        <h5 class="mb-0">@personel.personelAdSoyad</h5>
+                        @if (birim != null)
+                        {
+                            <small class="">@birim.birimAd</small>
+                        }
+                    </div>
+                </div>
+                <div style="margin-right: 20px;">
+                    <small class="d-block">
+                        @mail.mailGonderimTarihi.Value.ToString("HH:mm ddd", turkishCulture)
+                    </small>
+                    <small class="d-block">
+                        @mail.mailGonderimTarihi.Value.ToString("dd/MM/yyyy", turkishCulture)
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title p-2"><b>@mail.mailKonu</b></h5>
+            <hr />
+            <div class="card-text p-2">
+                @Html.Raw(mail.mailIcerik)
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5" id="icerik-mail-gonder">
+        <form method="post" action="@Url.Action("Gonder", "Mail")">
+            <div class="form-group mb-3" id="form-groups-mail-gonder">
+                <label for="readonlyTextbox" id="labels-mail-gonder"><b>Gönderilecek Kişi:</b></label>
+                <input class="form-control forms-mail-gonder" type="text" id="readonlyTextbox" value="@Model.GonderenAdSoyad" readonly />
+                <input type="hidden" id="personelIDs" name="personelIDs" value="@Model.GonderenID" />
+            </div>
+            <div class="form-group mb-3" id="form-groups-mail-gonder">
+                <label for="konu" id="labels-mail-gonder"><b>Konu:</b></label>
+                <input class="form-control forms-mail-gonder" type="text" id="konu" name="konu" />
+            </div>
+            <textarea id="textarea" name="icerik"></textarea>
+            <button class="btn btn-primary text-center mt-3" type="submit">Gönder</button>
+        </form>
+    </div>
+</div>

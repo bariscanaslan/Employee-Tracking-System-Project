@@ -1,0 +1,56 @@
+﻿@model IsTakipSistemiMVC.Models.DuyuruTableModel
+@{
+    Layout = ViewBag.layout;
+    ViewBag.Title = "Duyuru Bilgileri";
+
+}
+
+<link href="~/Assets/css/style.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="profil-custom">
+        <div class="row">
+            <div class="col-md-12 mt-5" id="duyuru-info-whole-card">
+                @if (Model.Duyurular.Any())
+                {
+                    var duyuru = Model.Duyurular.FirstOrDefault();
+                    var personel = Model.Personeller.FirstOrDefault(p => p.personelID == duyuru.duyuruOlusturan);
+                    var birim = Model.Birimler.FirstOrDefault(b => b.birimID == duyuru.duyuruOlusturanBirim);
+
+                    <input type="hidden" value="@duyuru.duyuruID" name="id" />
+                    <div class="mt-5">
+                        <img class="rounded-circle" src="@personel.personelFoto" width="250" height="250" />
+                    </div>
+                    <div class="mt-5">
+                        <label class="form-label" id="duyuru-info-kisi">Duyuru Oluşturan Kişi</label>
+                        <p class="form-control-plaintext" id="duyuru-info-mKisi">@personel.personelAdSoyad</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" id="duyuru-info-baslik">Duyuru Başlık</label>
+                        <p class="form-control-plaintext" id="duyuru-info-mBaslik">@duyuru.duyuruBaslik</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" id="duyuru-info-icerik">Duyuru İçerik</label>
+                        <p class="form-control-plaintext" id="duyuru-info-mIcerik">@duyuru.duyuruIcerik</p>
+                    </div>
+                    if (duyuru.duyuruOlusturan != 11)
+                    {
+                        <div class="mb-3">
+                            <label class="form-label" id="duyuru-info-birim">Duyuru Oluşturan Birim</label>
+                            <p class="form-control-plaintext" id="duyuru-info-mBirim">@birim.birimAd</p>
+                        </div>
+                    }
+                    <div class="mb-3">
+                        <label class="form-label" id="duyuru-info-tarih">Duyuru Oluşturma Tarihi</label>
+                        <p class="form-control-plaintext" id="duyuru-info-mTarih">@duyuru.duyuruTarih</p>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-6 border-right">
+            <div class="p-3 py-5">
+            </div>
+        </div>
+    </div>
+</div>
+

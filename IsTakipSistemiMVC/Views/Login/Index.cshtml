@@ -1,0 +1,95 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Giriş Sayfası";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>İÇDAŞ GİRİŞ PANELİ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <link href="~/Assets/Login/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/Login/css/main.css" rel="stylesheet" />
+    <link href="~/Assets/Login/css/util.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="~/Images/logo.png" alt="IMG">
+                </div>
+
+                <div class="login100-form validate-form">
+                    <span class="login100-form-title">
+                        Sisteme Giriş
+                    </span>
+
+                    @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                    {
+                        <div class="wrap-input100 validate-input">
+                            <input class="input100" type="text" id="kullaniciAd" name="kullaniciAd" placeholder="Kullanıcı Adı">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Password is required">
+                            <input class="input100" type="password" id="sifre" name="sifre" placeholder="Şifre">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <button type="submit" class="login100-form-btn" style="font-size: 18px;">
+                                Giriş Yap
+                            </button>
+                        </div>
+                    }
+
+                    <div class="container-login100-form-btn">
+                        <a href="@Url.Action("SifremiUnuttum", "Login")" class="btn btn-default" style="font-size: 15px;">
+                            Şifremi Unuttum
+                        </a>
+                    </div>
+                </div>
+                @if (ViewBag.mesaj != null)
+                {
+                    <div class="login100-hata pt-5 w-100">
+                        <div class="alert alert-danger text-center w-100" role="alert">
+                            @ViewBag.mesaj
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Assets/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Assets/Login/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Assets/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Assets/Login/vendor/select2/select2.min.js"></script>
+    <script src="~/Assets/Login/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <script src="~/Assets/Login/js/main.js"></script>
+</body>
+
+</html>

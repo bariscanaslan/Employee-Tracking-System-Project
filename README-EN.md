@@ -12,7 +12,7 @@
 2. **Employee**:
    - Can accept or decline assigned tasks.
    - Can complete tasks and provide comments on them.
-   - Can track their own tasks.
+   - Can track their own tasks. 
    - Can send emails to other employees within the system.
 
 3. **Admin**:

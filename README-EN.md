@@ -2,7 +2,7 @@
 
 ## WARNING! 
 
-This project created for a Turkish employer. So, all the texts are Turkish. Most of the variables are created with a Turkish name. If you have treble with this situation please contact me anytime.
+This project created for a Turkish employer. So, all the texts are Turkish. Most of the variables are created with a Turkish name. Please contact me if you have any trouble with this situation.
 - My e-mail address: bariscanaslan@outlook.com
 - My website: www.bariscanaslan.com
 

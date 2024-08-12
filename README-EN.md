@@ -1,5 +1,12 @@
 # Employee Tracking System Project
 
+## WARNING! 
+
+This project created for a Turkish employer. So, all the texts are Turkish. Most of the variables are created with a Turkish name. If you have treble with this situation please contact me anytime.
+- My e-mail address: bariscanaslan@outlook.com
+- My website: www.bariscanaslan.com
+
+
 ## Project Purpose
 
 **Employee Tracking System Project** is a platform designed to efficiently manage tasks and monitor employee performance in the workplace. This system includes three types of users with different levels of authority:

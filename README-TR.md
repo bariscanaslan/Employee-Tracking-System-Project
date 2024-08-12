@@ -71,9 +71,56 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 ## Ekran Görüntüleri
 
    <div align="center">
-      ## Giriş Sayfası
-      <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/1.png" alt="Manager Panel"/>
+   ### Giriş Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/1.png" alt="Manager Panel"/>
 
+   ### Yönetici Ana Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/2.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/3.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/4.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/5.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/6.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/7.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/8.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/9.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/10.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/11.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/12.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/13.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/14.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/15.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/16.png" alt="Manager Panel"/>
+
+   ### İş Atama İşlemmleri Sayfası
+   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/17.png" alt="Manager Panel"/>
 </div>
 
    

@@ -70,6 +70,6 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 
 ## Ekran Görüntüleri
 
-   [![Alt Text](https://bariscanaslan.com/assets/img/logo2.png)]
+   ![Alt Text](https://bariscanaslan.com/assets/img/logo2.png)
 
    

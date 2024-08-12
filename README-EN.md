@@ -46,3 +46,22 @@ To run the project on your local machine, follow these steps:
    ```bash
    git clone https://github.com/lionpeace/Employee-Tracking-System-Project.git
    cd Employee-Tracking-System-Project
+
+2. **Set up the Database:**
+
+   - Create the necessary tables in MSSQL Server.
+   - Configure the database connection in the **appsettings.json** file.
+
+3. **Install the Required Dependencies:**
+
+   ```bash
+   dotnet restore
+
+4. **Run the Project:**
+
+   ```bash
+   dotnet run
+
+## Screenshots
+
+

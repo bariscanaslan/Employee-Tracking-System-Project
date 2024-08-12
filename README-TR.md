@@ -71,8 +71,8 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 ## Ekran Görüntüleri
 
    <div align="center">
-      ### Giriş Sayfası
-      <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/1.png" alt="Manager Panel" width="600"/>
+      ## Giriş Sayfası
+      <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/1.png" alt="Manager Panel"/>
 
 </div>
 

@@ -44,8 +44,8 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 1. **Depoyu klonlayın:**
 
    ```bash
-   git clone https://github.com/kullaniciadi/is-takip-sistemi.git
-   cd is-takip-sistemi
+   git clone https://github.com/lionpeace/Employee-Tracking-System-Project.git
+   cd Employee-Tracking-System-Project
 
 2. **Veritabanını Kurun:**
 

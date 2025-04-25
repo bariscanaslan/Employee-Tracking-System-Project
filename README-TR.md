@@ -72,55 +72,55 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 
    <div align="center">
    ### Giriş Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/1.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/1.png" alt="Manager Panel"/>
 
    ### Yönetici Ana Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/2.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/2.png" alt="Manager Panel"/>
 
    ### İş Atama İşlemleri Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/3.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/3.png" alt="Manager Panel"/>
 
    ### İş Takip Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/4.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/4.png" alt="Manager Panel"/>
 
    ### İzinleri Yönet Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/5.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/5.png" alt="Manager Panel"/>
 
    ### Mail Gelen Kutusu Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/6.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/6.png" alt="Manager Panel"/>
 
    ### Mail Gönder Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/7.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/7.png" alt="Manager Panel"/>
 
    ### Duyuru Okuma Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/8.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/8.png" alt="Manager Panel"/>
 
    ### Yemek Tablosu Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/9.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/9.png" alt="Manager Panel"/>
 
    ### Log Tablosu Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/10.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/10.png" alt="Manager Panel"/>
 
    ### Birim Tablosu Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/11.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/11.png" alt="Manager Panel"/>
 
    ### Personel Tablosu Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/12.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/12.png" alt="Manager Panel"/>
 
    ### Çalışan Ana Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/13.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/13.png" alt="Manager Panel"/>
 
    ### İş Tamamlama Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/14.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/14.png" alt="Manager Panel"/>
 
    ### İş Takip Sayfası (Çalışan)
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/15.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/15.png" alt="Manager Panel"/>
 
    ### İzin Talep Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/16.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/16.png" alt="Manager Panel"/>
 
    ### İzinlerim Sayfası
-   <img src="https://bariscanaslan.com/Github/Employee-Tracking-System-Project/17.png" alt="Manager Panel"/>
+   <img src="https://bariscanaslan.com/Assets/img/Github/Employee-Tracking-System-Project/17.png" alt="Manager Panel"/>
 </div>
 
    
